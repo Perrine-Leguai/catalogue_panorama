@@ -73,21 +73,47 @@
             }
         }
 
-        //search by seen (boolean) = false
+        //search by seen (boolean) = false order from older to recenter
         public function researchByNotSeen(){
             try{
                 //connect to the bdd
                 $db= Connection::connect(); 
 
                 //find all the updates not seen yet 
-                $stmt=$db->prepare("SELECT * FROM updates WHERE seen=:is_seen");
-                $stmt->bindParam('seen', 0);
+                $stmt=$db->prepare("SELECT * FROM updates WHERE seen='false' ORDER BY `updates`.`updated_date` ASC");
+                $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
                 $stmt->closeCursor();
+                //transform $data into a tab of obj Update
+                $i=0;
+                foreach($data as $update){
+                    $update_obj = new Update();
+                    $update_obj ->setId($update['id'])->setUpdatedDate($update['updated_date'])->setInputName($update['input_name'])
+                                ->setOldContent($update['old_content'])->setNewContent($update['new_content'])
+                                ->setIdArtwork($update['id_artwork'])->setIsSeen($update['seen']) ;
+                    $update_tab[$i]= $update_obj;
+                    $i++;
+                }
 
-                return $data;
+                return $update_tab;
+
+            }catch(PDOException $e){
+                throw new DAOException($e->getMessage(), $e->getCode());
+            }
+        }
+
+        //update from not seen status to seen
+        public function isSeen(int $updateId){
+            echo$updateId;
+            try{
+                //connect to the bdd
+                $db= Connection::connect(); 
+
+                //update the seen column
+                $stmt=$db->prepare("UPDATE updates SET seen='1' WHERE id=$updateId");
+                $stmt->execute();
+                print_r ($stmt);
 
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());

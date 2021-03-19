@@ -1,29 +1,29 @@
 <?php
 
-    require_once('../_service/UserService.php');
-    require_once('../_service/StudentService.php');
-    require_once('../_service/ArtworkService.php');
-    require_once('../_service/UpdateService.php');
-    require_once('../presentation/communHtml.php');
-    require_once('../presentation/studentView.php');
-    require_once('../_class/Artwork.php');
-    require_once('../_class/Update.php');
+    require_once(__DIR__.'/../_service/UserService.php');
+    require_once(__DIR__.'/../_service/StudentService.php');
+    require_once(__DIR__.'/../_service/ArtworkService.php');
+    require_once(__DIR__.'/../_service/UpdateService.php');
+    require_once(__DIR__.'/../presentation/communHtml.php');
+    require_once(__DIR__.'/../presentation/studentView.php');
+    require_once(__DIR__.'/../_class/Artwork.php');
+    require_once(__DIR__.'/../_class/Update.php');
 
-    //var used for displaying
-    $edit = false;
 
     ////////////////////////////////////////FAKE INITIALISATION////////////////////
     $_SESSION['idStudent']  = 1;
+
+
     $session_artwork_obj = ArtworkService::searchBy($_SESSION['idStudent']);
     $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
     
     //display the global html
-    html('Etudiant.e.s');
+    html('Catalogue Panorama - Artiste');
 
     //form for creation and update
     formCreateArtwork($session_artwork_obj);
 
-    //list of updates doen by the student
+    //list of updates done by the student
     updatesList($list_of_updates);
     
     //display the scripts

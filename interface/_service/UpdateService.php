@@ -42,6 +42,18 @@
                 throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
             }
         }
+
+        //change status seen from false to true
+        public static function update(int $updateId){
+            
+            try{
+                $dao = new UpdateDAO();
+                return $dao->isSeen($updateId);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
         
     }
 ?>
