@@ -105,7 +105,7 @@
 
         //update from not seen status to seen
         public function isSeen(int $updateId){
-            echo$updateId;
+           
             try{
                 //connect to the bdd
                 $db= Connection::connect(); 
@@ -113,7 +113,6 @@
                 //update the seen column
                 $stmt=$db->prepare("UPDATE updates SET seen='1' WHERE id=$updateId");
                 $stmt->execute();
-                print_r ($stmt);
 
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());

@@ -68,7 +68,17 @@
             }
         }
 
-        
+        //change status seen from false to true
+        public static function updateSeenStatus(int $artworkId){
+            
+            try{
+                $dao = new ArtworkDAO();
+                return $dao->isSeen($artworkId);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
 
         
     }

@@ -150,6 +150,22 @@
             }
         }
 
+        //update from not seen status to seen
+        public function isSeen(int $artworkId){
+           
+            try{
+                //connect to the bdd
+                $db= Connection::connect(); 
+
+                //update the seen column
+                $stmt=$db->prepare("UPDATE artwork SET seen='1' WHERE id=$artworkId");
+                $stmt->execute();
+
+            }catch(PDOException $e){
+                throw new DAOException($e->getMessage(), $e->getCode());
+            }
+        }
+
         
 
         
