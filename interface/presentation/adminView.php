@@ -1,5 +1,5 @@
 <?php
-    function main_block(array $updates_list){ ?>
+    function main_block(array $updates_list, array $update_list_artwork){ ?>
         <div id="updates_list_admin" class="col-11 mt-5">
             <?php   $i=1;
                     foreach($updates_list as $update){ ?>
@@ -16,7 +16,7 @@
                         <div class="row mt-3 m-2">
                             <div class="d-inline-flex col-6"><?=$update->getUpdatedDate() ?></div>
                             <div class="d-inline-flex col-6 justify-content-end">
-                                <a type="sumbit" class="btn btn-light text-secondary" href="../_controller/adminViewController.php?edit=<?=$update->getId()?>">
+                                <a type="sumbit" class="btn btn-light text-secondary" href="../_controller/adminViewController.php?type=update&edit=<?=$update->getId()?>">
                                     <small>Marqué comme vu</small>
                                 </a>
                             </div>

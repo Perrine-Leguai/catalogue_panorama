@@ -93,16 +93,17 @@
 
         //search by seen (boolean) = false
         public function researchByNotSeen(){
+            
             try{
                 //connect to the bdd
                 $db= Connection::connect(); 
 
                 //find all the artwork where seen = false 
-                $stmt=$db->prepare("SELECT * FROM artwork WHERE seen=:is_seen");
-                $stmt->bindParam(':is_seen', 0);
+                $stmt=$db->prepare("SELECT * FROM artwork WHERE seen=0");
+                $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+                
                 $stmt->closeCursor();
 
                 return $data;
@@ -120,7 +121,7 @@
             $synopsis_short = $artwork->getSynopsisShort();
             $synopsis_long  = $artwork->getSynopsisLong();
             $thanks = $artwork->getThanks() ;
-            print_r($artwork);
+            
             echo "<br> id:".$id_object_to_modify;
             try{
                 //connect to the bdd
@@ -142,7 +143,7 @@
                 
 
                 $rs = $stmt->execute();
-                echo $rs;
+               
                 //return rs to display success message after adding
                 return $rs;
             }catch(PDOException $e){

@@ -46,6 +46,7 @@
 
         //search by seen 
         public static function searchByNotSeen(){
+            
             try{
                 $dao = new ArtworkDAO();
                 //catch a tab of all the not seen artwork, where seen = false
