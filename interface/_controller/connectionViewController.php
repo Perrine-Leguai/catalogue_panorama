@@ -54,7 +54,7 @@
                     $api_data_user = $userInfoService->getUserInfo($auth->user->email)[0];
 
                     // 
-                    $profile_str = $api_data_user->is_staff?"is_staff":"is_student";      
+                    $profile_str = $api_data_user->is_superuser?"is_staff":"is_student";      
                     
                     
                     $user = new User();
@@ -70,22 +70,19 @@
         
                         }catch(ServiceException $serviceException){
                             echo $ServiceException->getCode();
-                            die("User creattion Error");
+                            die("User creation Error");
                         }
                     
                     // get user id
                     $user = $userService->searchByEmail($auth->user->email);
 
-                    var_dump($auth->user->email);
-                    var_dump($user);
-                    die();
-
-                    // Create staff
-                    if($api_data_user->is_staff){
+                    // if staff create it 
+                    if($api_data_user->is_superuser){
                         
                         // CREATE Staff
                         try{
-                            $success=StaffService::create($user->getId());
+                            $success=StaffService::create($user['id']);
+                            echo 'staff created';
         
                         }catch(ServiceException $serviceException){
                             echo $ServiceException->getCode();
@@ -102,7 +99,7 @@
 
                         // create obj student
                         $student  = new Student();
-                        $student->setIdUser($user->getId())
+                        $student->setIdUser($user['id'])
                                 ->setNickname($api_data_artist->nickname)
                                 ->setBioShortFr($api_data_artist->bio_short_fr)
                                 ->setBioShortEn($api_data_artist->bio_short_en)
@@ -120,16 +117,25 @@
                             die("Student creattion Error");
                         }
 
+                        // user exist
+                        $studentService = new StudentService();
+                        $student = $studentService->searchByUser($user->getId());
+                        $_SESSION['idStudent'] = $student->getId();
+
                         
 
                     } // end of student creeation 
 
                 } // end of user creation
 
+                if($user['profile'] == "is_student"){
+
                 // user exist
-                $studentService = new StudentService();
-                $student = $studentService->searchByUser($user->getId());
-                $_SESSION['idStudent'] = $student->getId();
+                    $studentService = new StudentService();
+                    $student = $studentService->searchByUser($user->getId());
+                    $_SESSION['idStudent'] = $student->getId();
+
+                }
 
                 echo "Success ! ";
                 var_dump($student);

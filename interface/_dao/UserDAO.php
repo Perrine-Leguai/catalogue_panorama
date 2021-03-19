@@ -20,7 +20,6 @@
                 //insert request
                 $stmt = $db->prepare("INSERT INTO `user` VALUES (NULL, :kart_url, :first_name, :last_name, :email, :profil)");
                 //binding params
-                $stmt->bindParam(':id_user', $id_user); 
                 $stmt->bindParam(':kart_url', $kart_url ); 
                 $stmt->bindParam(':first_name', $first_name ); 
                 $stmt->bindParam(':last_name', $last_name ); 
