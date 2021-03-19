@@ -79,6 +79,29 @@
             }
         }
 
+
+        //search by user
+        public function searchByUser(Int $idUser){
+            try{
+                //connect to the bdd
+                $db= Connection::connect(); 
+
+                $stmt=$db->prepare("SELECT * FROM student WHERE id_user=:idUser");
+                $stmt->bindParam(':idUser', $idUser);
+                $stmt->execute();
+                //store the result into data, returns an array indexed by column name 
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                //free the memory
+                $stmt->closeCursor();
+                
+                return $data;
+
+            }catch(PDOException $e){
+                throw new DAOException($e->getMessage(), $e->getCode());
+            }
+        }
+
         // public function update(Object $objet, int $idOdbjectToModify){
 
         // }

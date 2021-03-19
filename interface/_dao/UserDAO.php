@@ -72,5 +72,28 @@
             }
         }
 
+
+        //search by user
+        public function searchByEmail(String $email){
+            try{
+                //connect to the bdd
+                $db= Connection::connect(); 
+
+                $stmt=$db->prepare("SELECT * FROM user WHERE email=:email");
+                $stmt->bindParam(':email', $email);
+                $stmt->execute();
+                //store the result into data, returns an array indexed by column name 
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                //free the memory
+                $stmt->closeCursor();
+                
+                return $data;
+
+            }catch(PDOException $e){
+                throw new DAOException($e->getMessage(), $e->getCode());
+            }
+        }
+
     }
 ?>

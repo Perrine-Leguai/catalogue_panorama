@@ -33,8 +33,8 @@
 
                 <form  id="formConnexion" method="post">
                     <div >
-
-                        <input id="username" type="text" class="form-control" placeholder="Ex : Ninja55" name="username" >
+                    username_or_email
+                        <input id="username" type="text" class="form-control" placeholder="Ex : Ninja55" name="username_or_email" >
                         <div class="row">
                         <div id="usernameko" class="col-6" [hidden]="isUsernameOk">Ce pseudo n'existe pas</div>
                         <div id="usernameok" class="col-6" [hidden]="!isUsernameOk">Bienvue à bord !</div>

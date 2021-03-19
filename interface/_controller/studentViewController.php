@@ -13,7 +13,7 @@
     $edit = false;
 
     ////////////////////////////////////////FAKE INITIALISATION////////////////////
-    $_SESSION['idStudent']  = 1;
+    // $_SESSION['idStudent']  = 1;
     $session_artwork_obj = ArtworkService::searchBy($_SESSION['idStudent']);
     $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
     

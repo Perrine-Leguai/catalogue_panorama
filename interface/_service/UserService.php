@@ -43,5 +43,17 @@
                 throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
             }
         }
+
+        //search user by email
+        public function searchByEmail(String $email){
+            try{
+                $dao = new UserDAO();
+                //catch a tab of one row, i.e the user looked for
+                return $dao->searchByEmail($email);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
     }
 ?>
