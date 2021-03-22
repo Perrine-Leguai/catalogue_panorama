@@ -16,7 +16,7 @@
     $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
     
     //display the global html
-    html('Catalogue Panorama - Artiste');
+    html('Catalogue Panorama - Artiste', null, null, null);
 
     //form for creation and update
     formCreateArtwork($session_artwork_obj);
