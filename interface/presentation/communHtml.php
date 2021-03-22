@@ -1,7 +1,7 @@
 <?php
     require_once(__DIR__.'/structure/sidebar.php');
 
-    function html(string $title, $session, $students, $artworks){ ?>
+    function html(string $title, $session=null, $students=null, $artworks=null){ ?>
         <html lang="fr">
             <head>
                 <title><?php echo $title  ?></title>

@@ -1,5 +1,5 @@
 <?php
-    function sidebar($session=null, $student_list, $artwork_list){ 
+    function sidebar($session=null, $student_list=null, $artwork_list=null){ 
         echo '<div class="col-2" style="height : 100%; min-height: 100vh;"> ';
 
             //show student and artwork lists if user profil is staff
