@@ -19,6 +19,15 @@
 
     $error = [];
     $error_message = "";
+    
+    //reload page if logout is the url
+    if(isset($_GET) && !empty($_GET) && isset($_GET['logout'])){
+        
+        //Destroys all data registered to a session
+        session_destroy();
+        header('location: ../_controller/connectionViewController.php');
+    }
+
 
     if(!empty($_POST)){
 
@@ -128,7 +137,7 @@
 
                 } // end of user creation
 
-                if($user['profile'] == "is_student"){
+                if($user['profil'] == "is_student"){
 
                 // user exist
                     $studentService = new StudentService();
@@ -137,9 +146,19 @@
 
                 }
 
-                echo "Success ! ";
+                echo "Success !! ";
                 var_dump($student);
                 
+                //relocation if authentification is successfull
+
+                if ($_SESSION['profil']=='is_student' ) {
+                    
+                    header('location: ../_controller/studentViewController.php');
+                }elseif($_SESSION['profil']="is_staff"){
+                    
+                    header('location: ../_controller/adminViewController.php');
+                }
+
             } //  end auth success
             else {
                 $error_message = "Error Auth";

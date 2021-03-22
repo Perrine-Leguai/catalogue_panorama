@@ -12,9 +12,9 @@
     session_start();
     //redirection if not connected or don't have access
     if (!$_SESSION) {
-        header('location: ../connectionViewController.php?logout');
-    }elseif($_SESSION!="is_student"){
-        header('location: ../connectionViewController.php?logout');
+        header('location: ../_controller/connectionViewController.php?logout');
+    }elseif($_SESSION['profil']!="is_student"){
+        header('location: ../_controller/connectionViewController.php?logout');
     }
 
     ////////////////////////////////////////FAKE INITIALISATION////////////////////

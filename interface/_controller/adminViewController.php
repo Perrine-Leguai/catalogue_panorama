@@ -12,13 +12,11 @@
 
     session_start();
     //redirection if not connected or don't have access
-    if (!$_SESSION) {
-        header('location: ../connectionViewController.php?logout');
+    if (!$_SESSION ) {
+        header('location: ../_controller/connectionViewController.php?logout');
+    }elseif($_SESSION['profil']!="is_staff"){
+        header('location: ../_controller/connectionViewController.php?logout');
     }
-
-    /////////////////////////////////FAKE INFO/////////////////////////
-    // $_SESSION['profil']='is_staff';
-
 
     if( isset($_GET) && !empty($_GET)    &&
         isset($_GET['edit']) && !empty($_GET['edit'])){
@@ -44,7 +42,7 @@
     $artwork_list= ArtworkService::searchAll();
     
     //display gloabl html
-    html('Catalogue Panorama - admin', $_SESSION, $student_list, $artwork_list);
+    html('Catalogue Panorama - admin', $_SESSION['profil'], $student_list, $artwork_list);
     
     //display the list of updates not seen yet
     main_block($not_seen_updates, $not_seen_artwork);
