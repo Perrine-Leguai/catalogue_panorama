@@ -9,9 +9,17 @@
     require_once(__DIR__.'/../_class/Artwork.php');
     require_once(__DIR__.'/../_class/Update.php');
 
+    session_start();
+    //redirection if not connected or don't have access
+    if (!$_SESSION) {
+        header('location: ../connectionViewController.php?logout');
+    }elseif($_SESSION!="is_student"){
+        header('location: ../connectionViewController.php?logout');
+    }
 
     ////////////////////////////////////////FAKE INITIALISATION////////////////////
     $_SESSION['idStudent']  = 1;
+
     $session_artwork_obj = ArtworkService::searchBy($_SESSION['idStudent']);
     $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
     
@@ -110,12 +118,8 @@
 
                 }catch(ServiceException $serviceException){
                     echo $ServiceException->getCode();
-                }
-                
-            }
-                
+                }  
+            }      
         }
-
-        
     }
 ?>

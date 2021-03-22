@@ -17,7 +17,7 @@
     }
 
     /////////////////////////////////FAKE INFO/////////////////////////
-    $_SESSION['profil']='is_staff';
+    // $_SESSION['profil']='is_staff';
 
 
     if( isset($_GET) && !empty($_GET)    &&
