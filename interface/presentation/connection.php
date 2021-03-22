@@ -31,7 +31,7 @@
                     <span >Votre mot de passe est incorrect ou ne correspond pas à cet identifiant</span>
                 </div>
 
-                <form  id="formConnexion"  >
+                <form  id="formConnexion" method="post">
                     <div >
 
                         <input id="username" type="text" class="form-control" placeholder="Ex : Ninja55" name="username" >
