@@ -7,17 +7,19 @@
                 <div class="container-fluid column mt-5">
                 <!-- student List by alphabetic order -->
                     <label for="student_list"><h5>Liste des artistes</h5></label>
-                    <div id="student_list">
+                    <div id="student_list" class="mb-4">
                         <?php foreach($student_list as $student){
-                            echo'<a href="#">'.$student['first_name']." ".$student['last_name'].'</a><br>';
+                            $href= "contentViewController.php?artist=".$student['id'];
+                            echo'<a href='.$href.'>'.$student['first_name']." ".$student['last_name'].'</a><br>';
                         }
                             ?>
                     </div>
                 <!-- artwork List by alphabetic order -->
                     <label for="artwork_list"><h5>Liste des oeuvres</h5></label>
-                    <div id="artwork_list">
+                    <div id="artwork_list" class="mb-4">
                         <?php foreach($artwork_list as $artwork){
-                            echo'<a href="#">'.$artwork['title'].'</a><br>';
+                            $href="contentViewController.php?artwork=".$artwork['id'];
+                            echo'<a href='.$href.'>'.$artwork['title'].'</a><br>';
                         }
                             ?>
                     </div>
