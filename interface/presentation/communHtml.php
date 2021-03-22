@@ -20,6 +20,10 @@
                     rel="stylesheet" 
                     type="text/css" 
                     href="../css/mainStyle.css">
+                <link 
+                    rel="stylesheet" 
+                    type="text/css" 
+                    href="../css/countdown.css"> 
                 
             </head>
             <body>

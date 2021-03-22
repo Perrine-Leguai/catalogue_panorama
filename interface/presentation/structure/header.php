@@ -1,7 +1,7 @@
 <header style="height:100px; ">
-    <div class="d-flex flex-reverse">
-        <div class="col-2"><a href="../../_controller/connectionViewController.php?logout">Déconnexion</a></div>
-        <div class="col-2">
+    <div class="col-11">
+        <div class=" d-flex justify-content-end "><a href="../../_controller/connectionViewController.php?logout">Déconnexion</a></div>
+        <div class="d-flex justify-content-end">
             <!-- Display the countdown timer in an element -->
             <p id="demo"></p>            
         </div>
