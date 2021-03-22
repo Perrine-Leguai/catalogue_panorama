@@ -61,11 +61,6 @@
     
 <?php } ?>
 
-<?php
-    function sidebar(){ ?>
-
-<?php } ?>
-
 <?php function meanwhile($update){ ?>
     <!-- <div class="d-inline-flex">
     <?//$update->getFirstName()?>

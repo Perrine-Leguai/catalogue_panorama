@@ -37,8 +37,27 @@
         //search all users
         public function searchAll(){
             try{
+                //connect to the bdd
+                $db= Connection::connect();
 
-                $stmt=$this->db->prepare("SELECT * from user");
+                $stmt=$db->prepare("SELECT * from user");
+                $stmt->execute();
+                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                return $data;
+
+            }catch(PDOException $e){
+                throw new DAOException($e->getMessage(), $e->getCode());
+            }
+        }
+
+        //search all users that are students
+        public function searchAllStudents(){
+            try{
+                //connect to the bdd
+                $db= Connection::connect();
+
+                $stmt=$db->prepare("SELECT * from user inner join student on user.id = student.id_user ORDER BY `user`.`first_name` ASC");
                 $stmt->execute();
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -49,8 +49,10 @@
         //search all artwork 
         public function searchAll(){
             try{
+                //connect to the bdd
+                $db= Connection::connect(); 
 
-                $stmt=$this->db->prepare("SELECT * from artwork");
+                $stmt=$db->prepare("SELECT * from artwork  ORDER BY `artwork`.`title` ASC");
                 $stmt->execute();
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

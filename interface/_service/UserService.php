@@ -32,6 +32,19 @@
             }
         }
 
+        //search all users that are students
+        public static function searchAllStudents(){
+            try{
+
+                $dao = new UserDAO();
+                //catch a tab of all users in the database
+                return $dao->searchAllStudents();
+                
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
+
         //search user by id
         public function searchBy(Int $idUser){
             try{
