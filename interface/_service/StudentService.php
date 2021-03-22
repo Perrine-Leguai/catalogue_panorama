@@ -44,6 +44,18 @@
             }
         }
 
+        //search one student
+        public function searchByUser(Int $idUser){
+            try{
+                $dao = new StudentDAO();
+                //catch a tab of one row, i.e the student looked for
+                return $dao->searchByUser($idUser);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
+
         // public function update(Object $objet, int $idOdbjectToModify){
 
         // }
