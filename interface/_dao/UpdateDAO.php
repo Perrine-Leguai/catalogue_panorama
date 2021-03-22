@@ -65,6 +65,10 @@
                     $update_tab[$i]= $update_obj;
                     $i++;
                 }
+
+                if(!isset($update_tab)){
+                    $update_tab=[];
+                }
                 
                 return $update_tab;
 

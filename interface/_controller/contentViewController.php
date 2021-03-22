@@ -5,7 +5,6 @@
     require_once(__DIR__.'/../presentation/communHtml.php');
     require_once(__DIR__.'/../presentation/contentView.php');
     
-    
     session_start();
     //redirection if not connected or don't have access
     if (!$_SESSION) {
@@ -29,9 +28,7 @@
         try{
 
             $artist= StudentService::searchBy($id_artist);
-            print_r($artist);
-            // $updates = UpdateService::searchByAwId($artist['id_artwork']);
-
+            $updates = UpdateService::searchByAwId($artist['id_artwork']);
         }catch(ServiceException $serviceException){
             echo $ServiceException->getCode();
             die("User creation Error");
@@ -42,7 +39,7 @@
     html($artist['first_name']." ".$artist['last_name'], null, null, null);
 
     //artist and its artwork form
-    displayArtistContent($artist, $updates=null);
+    displayArtistContent($artist, $updates);
     
     //display the scripts
     scripts('countdown');

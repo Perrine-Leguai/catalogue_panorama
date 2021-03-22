@@ -63,7 +63,7 @@
                 echo$idStudent;
                 //connect to the bdd
                 $db= Connection::connect(); 
-                $collected_info =   'student.id, student.id_user, student.nickname, student.bio_short_fr, student.bio_long_fr, 
+                $collected_info =   'student.id, student.id_user, student.nickname, student.bio_short_fr, student.bio_fr, 
                                     student.facebook, student.twitter, student.website, user.first_name, user.last_name, 
                                     user.email, artwork.id"id_artwork", artwork.title, artwork.subtitle, artwork.type, artwork.duration, 
                                     artwork.synopsis_short, artwork.synopsis_long, artwork.thanks, artwork.seen';
@@ -74,7 +74,6 @@
                 $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
-                print_r($data);
                 //free the memory
                 $stmt->closeCursor();
                 

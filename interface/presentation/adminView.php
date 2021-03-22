@@ -24,7 +24,7 @@
 
                     </div>
 
-            <?php } ?>
+            <?php $i++; } ?>
         </div>
         <div id="artwork_list_admin" class="col-11 mt-5">
             <?php   $i=1;
@@ -56,7 +56,7 @@
 
                     </div>
 
-            <?php } ?>
+            <?php $i++; } ?>
         </div>
     
 <?php } ?>
