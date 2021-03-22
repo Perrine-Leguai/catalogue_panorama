@@ -19,7 +19,12 @@
         $not_seen_updates = UpdateService::searchByNotSeen() ;
         $not_seen_artwork = ArtworkService::searchByNotSeen();
         $array= array_merge($not_seen_artwork, $not_seen_updates);
-        print_r($array);
+
+        foreach($array as $block){
+            echo "objet <br>";
+            print_r($block);
+        }
+        
     }
     
     

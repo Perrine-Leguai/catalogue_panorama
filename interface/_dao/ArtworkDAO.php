@@ -99,14 +99,25 @@
                 $db= Connection::connect(); 
 
                 //find all the artwork where seen = false 
-                $stmt=$db->prepare("SELECT * FROM artwork WHERE seen=0");
+                $stmt=$db->prepare("SELECT * FROM artwork WHERE seen=0 ORDER BY `artwork`.`created_at` ASC");
                 $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                
                 $stmt->closeCursor();
 
-                return $data;
+                //transform $data into a tab of obj Update
+                $i=0;
+                foreach($data as $artwork){
+                    $artwork_obj = new Artwork();
+                    $artwork_obj ->setId($artwork['id'])->setTitle($artwork['title'])->setSubtitle($artwork['subtitle'])
+                                ->setType($artwork['type'])->setDuration($artwork['duration'])
+                                ->setSynopsisShort($artwork['synopsis_short'])->setSynopsisLong($artwork['synopsis_long'])
+                                ->setThanks($artwork['thanks'])->setCreatedAt($artwork['created_at'])->setIdStudent($artwork['id_student'])->setSeen($artwork['seen']) ;
+                    $artwork_tab[$i]= $artwork_obj;
+                    $i++;
+                }
+
+                return $artwork_tab;
 
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());

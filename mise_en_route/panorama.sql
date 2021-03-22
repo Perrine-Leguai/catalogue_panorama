@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 17 mars 2021 à 15:07
+-- Généré le : ven. 19 mars 2021 à 12:55
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 7.4.15
 
@@ -33,12 +33,10 @@ CREATE TABLE `artwork` (
   `subtitle` text DEFAULT NULL,
   `type` varchar(255) NOT NULL,
   `duration` varchar(10) NOT NULL,
-  `synopsis_short_fr` text DEFAULT NULL,
-  `synopsis_long_fr` text DEFAULT NULL,
-  `synopsis_short_en` text DEFAULT NULL,
-  `synospsis_long_en` text DEFAULT NULL,
+  `synopsis_short` text DEFAULT NULL,
+  `synopsis_long` text DEFAULT NULL,
+  `thanks` text DEFAULT NULL,
   `created_at` date NOT NULL,
-  `updates` varchar(255) DEFAULT NULL,
   `id_student` int(11) NOT NULL,
   `seen` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -47,20 +45,22 @@ CREATE TABLE `artwork` (
 -- Déchargement des données de la table `artwork`
 --
 
-INSERT INTO `artwork` (`id`, `title`, `subtitle`, `type`, `duration`, `synopsis_short_fr`, `synopsis_long_fr`, `synopsis_short_en`, `synospsis_long_en`, `created_at`, `updates`, `id_student`, `seen`) VALUES
-(2, 'the big coucou', 'is the biggest coucou', 'perf', '03:40', 'c est un joyeux coucou', 'coucou !!', 'happy hi', 'hello wooooooorld', '2021-04-11', NULL, 1, 0),
-(28, 'a odio semper', 'commodo auctor velit. Aliquam nisl.', 'cursus.', '06.22.21', 'sem semper erat, in consectetuer', 'elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy.', 'risus. Donec nibh enim, gravida', 'libero est, congue a, aliquet vel, vulputate eu, odio. Phasellus at augue id ante dictum', '2020-11-04', 'et,', 3, 1),
-(29, 'sit amet, consectetuer', 'in aliquet lobortis, nisi nibh', 'sollicitudin', '12.02.21', 'Cras convallis convallis dolor. Quisque', 'vel pede blandit congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia.', 'ante dictum cursus. Nunc mauris', 'sem eget massa. Suspendisse eleifend. Cras sed leo. Cras vehicula aliquet libero. Integer in magna.', '2021-11-19', 'risus.', 7, 0),
-(30, 'consectetuer euismod est', 'rutrum lorem ac risus. Morbi', 'dignissim', '07.29.21', 'lobortis. Class aptent taciti sociosqu', 'enim diam vel arcu. Curabitur ut odio vel est tempor bibendum. Donec felis orci, adipiscing', 'tristique pellentesque, tellus sem mollis', 'purus. Duis elementum, dui quis accumsan convallis, ante lectus convallis est, vitae sodales nisi magna', '2021-01-03', 'hendrerit', 4, 0),
-(31, 'eros. Proin ultrices.', 'ante blandit viverra. Donec tempus,', 'ullamcorper.', '09.01.21', 'aliquet. Proin velit. Sed malesuada', 'vulputate eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,', 'consectetuer, cursus et, magna. Praesent', 'ullamcorper viverra. Maecenas iaculis aliquet diam. Sed diam lorem, auctor quis, tristique ac, eleifend vitae,', '2021-09-07', 'semper', 10, 0),
-(32, 'neque. Morbi quis', 'tincidunt pede ac urna. Ut', 'odio', '05.29.20', 'non enim. Mauris quis turpis', 'imperdiet, erat nonummy ultricies ornare, elit elit fermentum risus, at fringilla purus mauris a nunc.', 'ornare egestas ligula. Nullam feugiat', 'Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere', '2020-12-15', 'ipsum', 5, 1),
-(33, 'ipsum primis in', 'Donec tincidunt. Donec vitae erat', 'ante', '06.07.20', 'Sed neque. Sed eget lacus.', 'ante dictum mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor', 'nunc ac mattis ornare, lectus', 'varius ultrices, mauris ipsum porta elit, a feugiat tellus lorem eu metus. In lorem. Donec', '2022-03-10', 'facilisis', 8, 0),
-(34, 'non enim commodo', 'sit amet orci. Ut sagittis', 'Nunc', '06.22.20', 'magnis dis parturient montes, nascetur', 'condimentum. Donec at arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere', 'ipsum. Phasellus vitae mauris sit', 'lorem eu metus. In lorem. Donec elementum, lorem ut aliquam iaculis, lacus pede sagittis augue,', '2022-02-22', 'tellus', 13, 0),
-(35, 'in consectetuer ipsum', 'nascetur ridiculus mus. Aenean eget', 'imperdiet', '12.20.20', 'fermentum fermentum arcu. Vestibulum ante', 'sodales elit erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer eu lacus.', 'vitae, posuere at, velit. Cras', 'scelerisque sed, sapien. Nunc pulvinar arcu et pede. Nunc sed orci lobortis augue scelerisque mollis.', '2022-01-29', 'nisi', 19, 1),
-(36, 'congue. In scelerisque', 'et libero. Proin mi. Aliquam', 'dolor', '08.05.21', 'augue, eu tempor erat neque', 'ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac,', 'adipiscing, enim mi tempor lorem,', 'nisi magna sed dui. Fusce aliquam, enim nec tempus scelerisque, lorem ipsum sodales purus, in', '2021-06-05', 'ac', 17, 0),
-(37, 'non, cursus non,', 'Fusce aliquet magna a neque.', 'Lorem', '08.18.21', 'aliquam, enim nec tempus scelerisque,', 'nisl. Quisque fringilla euismod enim. Etiam gravida molestie arcu. Sed eu nibh vulputate mauris sagittis', 'pharetra, felis eget varius ultrices,', 'pede sagittis augue, eu tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et', '2021-01-02', 'lacinia.', 21, 1),
-(38, 'leo. Cras vehicula', 'pharetra ut, pharetra sed, hendrerit', 'nulla', '10.26.20', 'sem. Pellentesque ut ipsum ac', 'risus a ultricies adipiscing, enim mi tempor lorem, eget mollis lectus pede et risus. Quisque', 'non, sollicitudin a, malesuada id,', 'vel pede blandit congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia.', '2021-10-30', 'erat.', 2, 1),
-(39, 'et ultrices posuere', 'ipsum sodales purus, in molestie', 'tempor', '04.24.20', 'adipiscing. Mauris molestie pharetra nibh.', 'non nisi. Aenean eget metus. In nec orci. Donec nibh. Quisque nonummy ipsum non arcu.', 'lacus vestibulum lorem, sit amet', 'dictum eu, placerat eget, venenatis a, magna. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', '2020-05-04', 'mauris', 12, 1);
+INSERT INTO `artwork` (`id`, `title`, `subtitle`, `type`, `duration`, `synopsis_short`, `synopsis_long`, `thanks`, `created_at`, `id_student`, `seen`) VALUES
+(2, 'The pas si big coucou', 'is the biggest coucou', 'film', '03:40', 'c est un joyeux coucou', 'coucou !!', 'happy hi', '2021-04-11', 1, 0),
+(28, 'a odio semper', 'commodo auctor velit. Aliquam nisl.', 'cursus.', '06.22.21', 'sem semper erat, in consectetuer', 'elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy.', 'risus. Donec nibh enim, gravida', '2020-11-04', 3, 1),
+(29, 'sit amet, consectetuer', 'in aliquet lobortis, nisi nibh', 'sollicitudin', '12.02.21', 'Cras convallis convallis dolor. Quisque', 'vel pede blandit congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia.', 'ante dictum cursus. Nunc mauris', '2021-11-19', 7, 0),
+(30, 'consectetuer euismod est', 'rutrum lorem ac risus. Morbi', 'dignissim', '07.29.21', 'lobortis. Class aptent taciti sociosqu', 'enim diam vel arcu. Curabitur ut odio vel est tempor bibendum. Donec felis orci, adipiscing', 'tristique pellentesque, tellus sem mollis', '2021-01-03', 4, 0),
+(31, 'eros. Proin ultrices.', 'ante blandit viverra. Donec tempus,', 'ullamcorper.', '09.01.21', 'aliquet. Proin velit. Sed malesuada', 'vulputate eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,', 'consectetuer, cursus et, magna. Praesent', '2021-09-07', 10, 0),
+(32, 'neque. Morbi quis', 'tincidunt pede ac urna. Ut', 'odio', '05.29.20', 'non enim. Mauris quis turpis', 'imperdiet, erat nonummy ultricies ornare, elit elit fermentum risus, at fringilla purus mauris a nunc.', 'ornare egestas ligula. Nullam feugiat', '2020-12-15', 5, 1),
+(33, 'ipsum primis in', 'Donec tincidunt. Donec vitae erat', 'ante', '06.07.20', 'Sed neque. Sed eget lacus.', 'ante dictum mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor', 'nunc ac mattis ornare, lectus', '2022-03-10', 8, 0),
+(34, 'non enim commodo', 'sit amet orci. Ut sagittis', 'Nunc', '06.22.20', 'magnis dis parturient montes, nascetur', 'condimentum. Donec at arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere', 'ipsum. Phasellus vitae mauris sit', '2022-02-22', 13, 0),
+(35, 'in consectetuer ipsum', 'nascetur ridiculus mus. Aenean eget', 'imperdiet', '12.20.20', 'fermentum fermentum arcu. Vestibulum ante', 'sodales elit erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer eu lacus.', 'vitae, posuere at, velit. Cras', '2022-01-29', 19, 1),
+(36, 'congue. In scelerisque', 'et libero. Proin mi. Aliquam', 'dolor', '08.05.21', 'augue, eu tempor erat neque', 'ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac,', 'adipiscing, enim mi tempor lorem,', '2021-06-05', 17, 0),
+(37, 'non, cursus non,', 'Fusce aliquet magna a neque.', 'Lorem', '08.18.21', 'aliquam, enim nec tempus scelerisque,', 'nisl. Quisque fringilla euismod enim. Etiam gravida molestie arcu. Sed eu nibh vulputate mauris sagittis', 'pharetra, felis eget varius ultrices,', '2021-01-02', 21, 1),
+(38, 'leo. Cras vehicula', 'pharetra ut, pharetra sed, hendrerit', 'nulla', '10.26.20', 'sem. Pellentesque ut ipsum ac', 'risus a ultricies adipiscing, enim mi tempor lorem, eget mollis lectus pede et risus. Quisque', 'non, sollicitudin a, malesuada id,', '2021-10-30', 2, 1),
+(39, 'et ultrices posuere', 'ipsum sodales purus, in molestie', 'tempor', '04.24.20', 'adipiscing. Mauris molestie pharetra nibh.', 'non nisi. Aenean eget metus. In nec orci. Donec nibh. Quisque nonummy ipsum non arcu.', 'lacus vestibulum lorem, sit amet', '2020-05-04', 12, 1),
+(40, 'I\'m innocent', 'Je l\'jure', 'film', '01:45:03', 'blball', 'coucoucoucoucoucouc', '', '2021-03-17', 6, 0),
+(41, 'I\'m innocent', 'Je l\'jure', 'film', '01:45:03', 'blball', 'coucoucoucoucoucouc', '', '2021-03-17', 9, 0);
 
 -- --------------------------------------------------------
 
@@ -235,106 +235,18 @@ CREATE TABLE `updates` (
 --
 
 INSERT INTO `updates` (`id`, `updated_date`, `input_name`, `old_content`, `new_content`, `id_artwork`, `seen`) VALUES
-(1, '0000-00-00', 'Aenean', 'diam luctus lobortis. Class aptent', 'a, malesuada id, erat. Etiam', 34, 0),
-(2, '0000-00-00', 'Quisque', 'Donec nibh enim, gravida sit', 'sapien molestie orci tincidunt adipiscing.', 32, 0),
-(3, '0000-00-00', 'lacus.', 'massa rutrum magna. Cras convallis', 'nulla magna, malesuada vel, convallis', 39, 0),
-(4, '0000-00-00', 'ut,', 'ridiculus mus. Aenean eget magna.', 'Ut sagittis lobortis mauris. Suspendisse', 38, 1),
-(5, '0000-00-00', 'Nulla', 'Nam consequat dolor vitae dolor.', 'eleifend vitae, erat. Vivamus nisi.', 34, 0),
-(6, '0000-00-00', 'bibendum', 'mi lorem, vehicula et, rutrum', 'non, dapibus rutrum, justo. Praesent', 28, 1),
-(7, '0000-00-00', 'tortor', 'lacinia vitae, sodales at, velit.', 'vel, venenatis vel, faucibus id,', 37, 1),
-(8, '0000-00-00', 'lacus.', 'elit pede, malesuada vel, venenatis', 'mi lorem, vehicula et, rutrum', 33, 1),
-(9, '0000-00-00', 'Cum', 'porttitor eros nec tellus. Nunc', 'a mi fringilla mi lacinia', 35, 0),
-(10, '0000-00-00', 'luctus', 'leo. Vivamus nibh dolor, nonummy', 'Phasellus dolor elit, pellentesque a,', 29, 1),
-(11, '0000-00-00', 'magna', 'fringilla. Donec feugiat metus sit', 'adipiscing, enim mi tempor lorem,', 34, 1),
-(12, '0000-00-00', 'scelerisque', 'quam. Curabitur vel lectus. Cum', 'amet ultricies sem magna nec', 34, 1),
-(13, '0000-00-00', 'placerat.', 'nec, eleifend non, dapibus rutrum,', 'odio. Phasellus at augue id', 31, 1),
-(14, '0000-00-00', 'pede,', 'ultrices a, auctor non, feugiat', 'amet, consectetuer adipiscing elit. Curabitur', 37, 0),
-(15, '0000-00-00', 'tempus', 'vitae sodales nisi magna sed', 'Suspendisse non leo. Vivamus nibh', 29, 1),
-(16, '0000-00-00', 'aptent', 'eu metus. In lorem. Donec', 'Nulla facilisis. Suspendisse commodo tincidunt', 35, 1),
-(17, '0000-00-00', 'augue', 'vulputate, posuere vulputate, lacus. Cras', 'hendrerit id, ante. Nunc mauris', 32, 0),
-(18, '0000-00-00', 'eget', 'bibendum fermentum metus. Aenean sed', 'Nullam vitae diam. Proin dolor.', 34, 0),
-(19, '0000-00-00', 'Vestibulum', 'Nunc mauris elit, dictum eu,', 'dictum placerat, augue. Sed molestie.', 36, 1),
-(20, '0000-00-00', 'Curae;', 'ornare placerat, orci lacus vestibulum', 'urna. Nullam lobortis quam a', 38, 0),
-(21, '0000-00-00', 'purus', 'magna tellus faucibus leo, in', 'lobortis quis, pede. Suspendisse dui.', 28, 1),
-(22, '0000-00-00', 'felis.', 'erat vitae risus. Duis a', 'nibh enim, gravida sit amet,', 31, 1),
-(23, '0000-00-00', 'pellentesque', 'non, cursus non, egestas a,', 'egestas blandit. Nam nulla magna,', 34, 0),
-(24, '0000-00-00', 'rutrum', 'vestibulum lorem, sit amet ultricies', 'est, vitae sodales nisi magna', 34, 0),
-(25, '0000-00-00', 'In', 'sed, facilisis vitae, orci. Phasellus', 'Suspendisse tristique neque venenatis lacus.', 35, 1),
-(26, '0000-00-00', 'arcu', 'ornare, facilisis eget, ipsum. Donec', 'ultricies ornare, elit elit fermentum', 36, 0),
-(27, '0000-00-00', 'a,', 'urna justo faucibus lectus, a', 'risus. In mi pede, nonummy', 35, 1),
-(28, '0000-00-00', 'Ut', 'risus. In mi pede, nonummy', 'nec, mollis vitae, posuere at,', 31, 0),
-(29, '0000-00-00', 'gravida.', 'arcu ac orci. Ut semper', 'molestie sodales. Mauris blandit enim', 38, 0),
-(30, '0000-00-00', 'est,', 'dictum. Proin eget odio. Aliquam', 'gravida sagittis. Duis gravida. Praesent', 32, 1),
-(31, '0000-00-00', 'arcu.', 'nulla. Integer urna. Vivamus molestie', 'felis purus ac tellus. Suspendisse', 35, 0),
-(32, '0000-00-00', 'quam', 'gravida non, sollicitudin a, malesuada', 'nisl arcu iaculis enim, sit', 28, 1),
-(33, '0000-00-00', 'consequat', 'mi pede, nonummy ut, molestie', 'urna. Ut tincidunt vehicula risus.', 29, 0),
-(34, '0000-00-00', 'tincidunt,', 'Pellentesque habitant morbi tristique senectus', 'elit. Curabitur sed tortor. Integer', 29, 1),
-(35, '0000-00-00', 'lacinia', 'dapibus id, blandit at, nisi.', 'magnis dis parturient montes, nascetur', 29, 0),
-(36, '0000-00-00', 'Sed', 'faucibus lectus, a sollicitudin orci', 'Quisque fringilla euismod enim. Etiam', 28, 0),
-(37, '0000-00-00', 'Quisque', 'cursus et, eros. Proin ultrices.', 'sem. Nulla interdum. Curabitur dictum.', 37, 1),
-(38, '0000-00-00', 'Nam', 'vel quam dignissim pharetra. Nam', 'risus. Donec nibh enim, gravida', 35, 1),
-(39, '0000-00-00', 'lectus', 'Nulla eu neque pellentesque massa', 'sed, facilisis vitae, orci. Phasellus', 37, 1),
-(40, '0000-00-00', 'Suspendisse', 'velit. Cras lorem lorem, luctus', 'sit amet, consectetuer adipiscing elit.', 39, 0),
-(41, '0000-00-00', 'purus', 'nibh. Donec est mauris, rhoncus', 'lacinia orci, consectetuer euismod est', 36, 0),
-(42, '0000-00-00', 'vulputate,', 'tellus faucibus leo, in lobortis', 'ligula. Aliquam erat volutpat. Nulla', 36, 0),
-(43, '0000-00-00', 'lectus.', 'ac facilisis facilisis, magna tellus', 'nec luctus felis purus ac', 31, 1),
-(44, '0000-00-00', 'iaculis', 'Morbi quis urna. Nunc quis', 'velit justo nec ante. Maecenas', 36, 1),
-(45, '0000-00-00', 'Nam', 'sed tortor. Integer aliquam adipiscing', 'orci luctus et ultrices posuere', 29, 1),
-(46, '0000-00-00', 'sit', 'feugiat non, lobortis quis, pede.', 'tellus justo sit amet nulla.', 28, 0),
-(47, '0000-00-00', 'aliquet', 'quis, pede. Suspendisse dui. Fusce', 'primis in faucibus orci luctus', 38, 0),
-(48, '0000-00-00', 'Cras', 'Sed malesuada augue ut lacus.', 'erat volutpat. Nulla dignissim. Maecenas', 33, 0),
-(49, '0000-00-00', 'pellentesque', 'luctus et ultrices posuere cubilia', 'odio. Nam interdum enim non', 33, 1),
-(50, '0000-00-00', 'suscipit', 'Curabitur sed tortor. Integer aliquam', 'tristique neque venenatis lacus. Etiam', 39, 1),
-(51, '0000-00-00', 'facilisis', 'pharetra ut, pharetra sed, hendrerit', 'Suspendisse sed dolor. Fusce mi', 28, 1),
-(52, '0000-00-00', 'cubilia', 'in magna. Phasellus dolor elit,', 'Lorem ipsum dolor sit amet,', 39, 1),
-(53, '0000-00-00', 'magna.', 'justo. Praesent luctus. Curabitur egestas', 'mi tempor lorem, eget mollis', 37, 0),
-(54, '0000-00-00', 'Cras', 'auctor. Mauris vel turpis. Aliquam', 'Vivamus nisi. Mauris nulla. Integer', 31, 1),
-(55, '0000-00-00', 'Etiam', 'faucibus lectus, a sollicitudin orci', 'egestas ligula. Nullam feugiat placerat', 39, 1),
-(56, '0000-00-00', 'libero', 'rutrum urna, nec luctus felis', 'mauris sit amet lorem semper', 38, 1),
-(57, '0000-00-00', 'ante', 'Curabitur massa. Vestibulum accumsan neque', 'Cras dictum ultricies ligula. Nullam', 30, 1),
-(58, '0000-00-00', 'cursus', 'Donec elementum, lorem ut aliquam', 'erat vitae risus. Duis a', 29, 1),
-(59, '0000-00-00', 'turpis', 'ac arcu. Nunc mauris. Morbi', 'neque. In ornare sagittis felis.', 29, 0),
-(60, '0000-00-00', 'mi', 'convallis, ante lectus convallis est,', 'tincidunt. Donec vitae erat vel', 35, 1),
-(61, '0000-00-00', 'enim.', 'velit in aliquet lobortis, nisi', 'est, congue a, aliquet vel,', 30, 1),
-(62, '0000-00-00', 'et', 'velit dui, semper et, lacinia', 'vitae, aliquet nec, imperdiet nec,', 36, 1),
-(63, '0000-00-00', 'neque.', 'ante. Vivamus non lorem vitae', 'et malesuada fames ac turpis', 31, 0),
-(64, '0000-00-00', 'euismod', 'non, cursus non, egestas a,', 'Suspendisse eleifend. Cras sed leo.', 31, 0),
-(65, '0000-00-00', 'odio', 'augue porttitor interdum. Sed auctor', 'adipiscing ligula. Aenean gravida nunc', 28, 0),
-(66, '0000-00-00', 'lobortis', 'ipsum. Donec sollicitudin adipiscing ligula.', 'vitae, erat. Vivamus nisi. Mauris', 37, 0),
-(67, '0000-00-00', 'Vivamus', 'vel nisl. Quisque fringilla euismod', 'Pellentesque ut ipsum ac mi', 32, 0),
-(68, '0000-00-00', 'auctor', 'quam quis diam. Pellentesque habitant', 'diam vel arcu. Curabitur ut', 38, 1),
-(69, '0000-00-00', 'lorem', 'euismod ac, fermentum vel, mauris.', 'quam, elementum at, egestas a,', 28, 1),
-(70, '0000-00-00', 'Fusce', 'consectetuer adipiscing elit. Curabitur sed', 'leo. Vivamus nibh dolor, nonummy', 31, 1),
-(71, '0000-00-00', 'nec', 'tellus id nunc interdum feugiat.', 'sed dictum eleifend, nunc risus', 29, 0),
-(72, '0000-00-00', 'Quisque', 'ipsum dolor sit amet, consectetuer', 'elit, a feugiat tellus lorem', 31, 1),
-(73, '0000-00-00', 'Fusce', 'lobortis. Class aptent taciti sociosqu', 'urna justo faucibus lectus, a', 31, 0),
-(74, '0000-00-00', 'pulvinar', 'elementum at, egestas a, scelerisque', 'metus vitae velit egestas lacinia.', 32, 1),
-(75, '0000-00-00', 'Nunc', 'tempus eu, ligula. Aenean euismod', 'dictum eu, eleifend nec, malesuada', 38, 0),
-(76, '0000-00-00', 'nec', 'neque tellus, imperdiet non, vestibulum', 'nulla. Integer urna. Vivamus molestie', 28, 0),
-(77, '0000-00-00', 'eget,', 'arcu. Morbi sit amet massa.', 'nulla. Integer urna. Vivamus molestie', 36, 1),
-(78, '0000-00-00', 'auctor,', 'rhoncus. Nullam velit dui, semper', 'lacus. Aliquam rutrum lorem ac', 39, 1),
-(79, '0000-00-00', 'Mauris', 'Fusce aliquam, enim nec tempus', 'fermentum risus, at fringilla purus', 37, 0),
-(80, '0000-00-00', 'dictum', 'et, rutrum eu, ultrices sit', 'nec, euismod in, dolor. Fusce', 35, 0),
-(81, '0000-00-00', 'erat.', 'blandit congue. In scelerisque scelerisque', 'id, blandit at, nisi. Cum', 36, 0),
-(82, '0000-00-00', 'Fusce', 'semper rutrum. Fusce dolor quam,', 'sed, est. Nunc laoreet lectus', 37, 1),
-(83, '0000-00-00', 'eget,', 'vel lectus. Cum sociis natoque', 'ultrices sit amet, risus. Donec', 38, 1),
-(84, '0000-00-00', 'sodales', 'ridiculus mus. Aenean eget magna.', 'mi eleifend egestas. Sed pharetra,', 39, 0),
-(85, '0000-00-00', 'Nulla', 'rhoncus. Donec est. Nunc ullamcorper,', 'libero nec ligula consectetuer rhoncus.', 33, 0),
-(86, '0000-00-00', 'consectetuer', 'hendrerit a, arcu. Sed et', 'Duis sit amet diam eu', 31, 0),
-(87, '0000-00-00', 'dolor', 'egestas. Sed pharetra, felis eget', 'imperdiet ornare. In faucibus. Morbi', 32, 0),
-(88, '0000-00-00', 'nulla.', 'risus, at fringilla purus mauris', 'Sed neque. Sed eget lacus.', 28, 1),
-(89, '0000-00-00', 'sit', 'vestibulum. Mauris magna. Duis dignissim', 'magna tellus faucibus leo, in', 37, 0),
-(90, '0000-00-00', 'erat', 'Sed eget lacus. Mauris non', 'Duis elementum, dui quis accumsan', 28, 0),
-(91, '0000-00-00', 'Donec', 'ultrices, mauris ipsum porta elit,', 'ipsum nunc id enim. Curabitur', 33, 0),
-(92, '0000-00-00', 'arcu.', 'nascetur ridiculus mus. Proin vel', 'velit dui, semper et, lacinia', 28, 0),
-(93, '0000-00-00', 'lectus', 'at, egestas a, scelerisque sed,', 'et magnis dis parturient montes,', 39, 1),
-(94, '0000-00-00', 'eget', 'libero at auctor ullamcorper, nisl', 'dolor egestas rhoncus. Proin nisl', 31, 1),
-(95, '0000-00-00', 'volutpat.', 'rutrum eu, ultrices sit amet,', 'pellentesque eget, dictum placerat, augue.', 34, 1),
-(96, '0000-00-00', 'et', 'Donec non justo. Proin non', 'arcu eu odio tristique pharetra.', 29, 1),
-(97, '0000-00-00', 'Quisque', 'tristique pellentesque, tellus sem mollis', 'sit amet metus. Aliquam erat', 37, 0),
-(98, '0000-00-00', 'fermentum', 'id, blandit at, nisi. Cum', 'Nullam suscipit, est ac facilisis', 37, 0),
-(99, '0000-00-00', 'luctus', 'dolor sit amet, consectetuer adipiscing', 'et ultrices posuere cubilia Curae;', 38, 1),
-(100, '0000-00-00', 'nec,', 'Quisque ac libero nec ligula', 'nunc id enim. Curabitur massa.', 34, 0);
+(101, '2021-03-18', '\0Artwork\0synopsis_long_en', 'hello wooooooorld', 'orange', 2, 1),
+(102, '2021-03-18', '\0\0synopsis_long_en', 'hello wooooooorld', 'orange', 2, 0),
+(103, '2021-03-18', '\0\0synopsis_long_en', 'hello wooooooorld', 'orange', 2, 1),
+(104, '2021-03-18', '\0\0synopsis_long_en', 'hello wooooooorld', 'violet', 2, 1),
+(105, '2021-03-18', '\0\0synopsis_long_en', 'hello wooooooorld', 'violet', 2, 1),
+(106, '2021-03-18', '\0\0synopsis_long_en', 'hello wooooooorld', 'violet', 2, 0),
+(107, '2021-03-18', '\0\0synopsis_long_en', 'hello wooooooorld', 'violet', 2, 1),
+(108, '2021-03-18', '\0\0synopsis_long_en', 'hello wooooooorld', 'violet', 2, 1),
+(109, '2021-03-18', '\0\0synopsis_long_en', 'hello wooooooorld', 'orange', 2, 1),
+(110, '2021-03-18', '\0\0synopsis_short_en', 'happy hi', 'orange', 2, 0),
+(111, '2021-03-18', '\0\0title', 'the big coucou', 'The pas si big coucou', 2, 1),
+(112, '2021-03-18', '\0\0synopsis_long_en', 'orange', 'coucou !!', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -433,7 +345,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `artwork`
 --
 ALTER TABLE `artwork`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT pour la table `medias`
@@ -457,7 +369,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT pour la table `updates`
 --
 ALTER TABLE `updates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT pour la table `user`
