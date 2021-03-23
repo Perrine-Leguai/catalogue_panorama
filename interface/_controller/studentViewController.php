@@ -76,7 +76,11 @@
                     //send the request throw several layer. 
                     //can catch a success if operation happened well - to display a success alert 1=success 0=fail
                    $success=ArtworkService::create($aw);
-                   echo $success;
+                   if($success){
+                       //send to the pre load artwork form
+                      header('location: ../_controller/studentViewController'); 
+                   }
+                   
 
                 }catch(ServiceException $serviceException){
                     echo $ServiceException->getCode();
@@ -121,9 +125,13 @@
                     $updated_artwork    ->setTitle($title)->setSubtitle($subtitle)->setType($type)->setDuration($duration)
                                         ->setSynopsisShort($short_syn)->setSynopsisLong($long_syn)
                                         ->setThanks($thanks)->setSeen(0);
-                                        print($session_artwork_obj->getId());
-                                        print_r($updated_artwork);
+                   
                     $success=ArtworkService::update($updated_artwork, $session_artwork_obj->getId());
+
+                    
+                    //send to the pre load artwork form
+                   
+                    
 
                 }catch(ServiceException $serviceException){
                     echo $ServiceException->getCode();

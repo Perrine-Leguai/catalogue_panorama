@@ -133,6 +133,10 @@
         }
 
         public function update(Object $artwork, int $id_object_to_modify){
+            
+            
+            $id = preg_replace("/[^0-9]/","",$id_object_to_modify);
+            
             $title             = $artwork->getTitle();
             $subtitle          = $artwork->getSubtitle() ;
             $type              = $artwork->getType() ;
@@ -141,7 +145,7 @@
             $synopsis_long  = $artwork->getSynopsisLong();
             $thanks = $artwork->getThanks() ;
             
-            echo "<br> id:".$id_object_to_modify;
+            
             try{
                 //connect to the bdd
                 $db= Connection::connect();                 

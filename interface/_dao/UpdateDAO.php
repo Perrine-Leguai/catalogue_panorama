@@ -90,15 +90,20 @@
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $stmt->closeCursor();
                 //transform $data into a tab of obj Update
-                $i=0;
-                foreach($data as $update){
-                    $update_obj = new Update();
-                    $update_obj ->setId($update['id'])->setUpdatedDate($update['updated_date'])->setInputName($update['input_name'])
-                                ->setOldContent($update['old_content'])->setNewContent($update['new_content'])
-                                ->setIdArtwork($update['id_artwork'])->setIsSeen($update['seen']) ;
-                    $update_tab[$i]= $update_obj;
-                    $i++;
+                if(!empty($data)){
+                    $i=0;
+                    foreach($data as $update){
+                        $update_obj = new Update();
+                        $update_obj ->setId($update['id'])->setUpdatedDate($update['updated_date'])->setInputName($update['input_name'])
+                                    ->setOldContent($update['old_content'])->setNewContent($update['new_content'])
+                                    ->setIdArtwork($update['id_artwork'])->setIsSeen($update['seen']) ;
+                        $update_tab[$i]= $update_obj;
+                        $i++;
+                    }  
+                }elseif(empty($data)){
+                    $update_tab=[];
                 }
+                
 
                 return $update_tab;
 

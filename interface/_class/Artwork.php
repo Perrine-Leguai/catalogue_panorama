@@ -58,7 +58,7 @@
          *
          * @return $title
          */
-        public function getTitle() : string
+        public function getTitle() : ?string
         {
                 return $this->title;
         }
@@ -70,7 +70,7 @@
          *
          * @return self
          */
-        public function setTitle(string $title) : self
+        public function setTitle(?string $title) : self
         {
                 $this->title = $title;
 
@@ -82,7 +82,7 @@
          *
          * @return $subtitle
          */
-        public function getSubtitle() : string 
+        public function getSubtitle() : ?string 
         {
                 return $this->subtitle;
         }
@@ -94,7 +94,7 @@
          *
          * @return self
          */
-        public function setSubtitle(string $subtitle) : self
+        public function setSubtitle(?string $subtitle) : self
         {
                 $this->subtitle = $subtitle;
 
@@ -130,7 +130,7 @@
          *
          * @return $duration
          */
-        public function getDuration() : string 
+        public function getDuration() : ?string 
         {
                 return $this->duration;
         }
@@ -142,7 +142,7 @@
          *
          * @return self
          */
-        public function setDuration(string $duration) : self
+        public function setDuration(?string $duration) : self
         {
                 $this->duration = $duration;
 
@@ -206,7 +206,7 @@
          */
         public function getThanks() : ?string 
         {
-                return $this->synopsis_long;
+                return $this->thanks;
         }
 
         /**
