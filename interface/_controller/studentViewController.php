@@ -53,6 +53,7 @@
                 $short_syn      = htmlentities($_POST['synopsis_short']);
                 $long_syn       = htmlentities($_POST['synopsis_long']);
                 $thanks         = htmlentities($_POST['thanks']);
+                $img            = checkFiles($_FILES);
                 
                 //if it's a creation
             if($_GET['action']=="create"){
