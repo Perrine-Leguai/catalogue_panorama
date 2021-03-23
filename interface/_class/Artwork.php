@@ -200,13 +200,23 @@
         }
 
         /**
+         * Get the value of thanks
+         *
+         * @return $thanks
+         */
+        public function getThanks() : ?string 
+        {
+                return $this->synopsis_long;
+        }
+
+        /**
          * Set the value of thanks
          *
          * @param $thanks 
          *
          * @return self
          */
-        public function setThanks(string $thanks) : self
+        public function setThanks(?string $thanks) : self
         {
                 $this->thanks = $thanks;
 
@@ -283,16 +293,6 @@
                 $this->seen = $seen;
 
                 return $this;
-        }
-
-        /**
-         * Get the value of thanks
-         *
-         * @return $thanks
-         */
-        public function getThanks() : string
-        {
-                return $this->thanks;
         }
 
         
