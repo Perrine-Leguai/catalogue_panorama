@@ -88,7 +88,7 @@
                     $user = $userService->searchByEmail($auth->user->email);
 
                     // if staff create it 
-                    if(isset($api_data_user->is_superuser)){
+                    if($api_data_user->is_superuser){
                         
                         // CREATE Staff
                         try{
