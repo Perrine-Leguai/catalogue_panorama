@@ -35,7 +35,7 @@ class AuthenticationService{
         $user = $response->user;
         
         $_SESSION['token'] = $token;
-        array_push($headers, "Authorization: JWT ".$_SESSION['token']);
+        
         return $response;
 
     }
