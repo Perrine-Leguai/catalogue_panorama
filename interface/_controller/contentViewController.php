@@ -7,7 +7,7 @@
     
     session_start();
     //redirection if not connected or don't have access
-    if (!$_SESSION) {
+    if (!$_SESSION || !$_SESSION['profil']=="is_staff") {
         header('location: ../connectionViewController.php?logout');
     }
 
