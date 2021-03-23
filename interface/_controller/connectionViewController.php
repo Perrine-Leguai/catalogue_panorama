@@ -24,7 +24,8 @@
     if(isset($_GET) && !empty($_GET) && isset($_GET['logout'])){
         
         //Destroys all data registered to a session
-        session_destroy();
+        $authService = new AuthenticationService();
+        $authService->logout();
         header('location: ../_controller/connectionViewController.php');
     }
 
@@ -48,6 +49,7 @@
             // try to log in
             $authService = new AuthenticationService();
             $auth = $authService->login($username, $password);
+            
             if($auth->status == 200){
 
                 
@@ -61,8 +63,8 @@
 
                     // get more user infos with token (in session)
                     $api_data_user = $userInfoService->getUserInfo($auth->user->email)[0];
-
-                    // 
+                    
+                    // get profil user
                     $profile_str = $api_data_user->is_superuser?"is_staff":"is_student";      
                     
                     
@@ -70,7 +72,7 @@
                     $user->setKartUrl($api_data_user->url)
                          ->setFirstName($api_data_user->first_name)
                          ->setLastName($api_data_user->last_name)
-                         ->setEmail($api_data_user->email)
+                         ->setEmail($auth->user->email)
                          ->setProfil($profile_str);
 
                     // CREATE User
@@ -86,7 +88,7 @@
                     $user = $userService->searchByEmail($auth->user->email);
 
                     // if staff create it 
-                    if($api_data_user->is_superuser){
+                    if(isset($api_data_user->is_superuser)){
                         
                         // CREATE Staff
                         try{
@@ -99,12 +101,13 @@
                         }
 
                     } // end create staff
-
+                    
                     // try to get current base Student
-                    if($api_data_user->is_student){
-
+                    if($profile_str=='is_student'){
+                        
                         // get infos from api
                         $api_data_artist = $userInfoService->getArtistInfo($auth->user->username);
+                        $api_data_artist= $api_data_artist[0];
 
                         // create obj student
                         $student  = new Student();
@@ -116,7 +119,8 @@
                                 ->setBioEn($api_data_artist->bio_en)
                                 ->setFacebook($api_data_artist->facebook_profile)
                                 ->setTwitter($api_data_artist->twitter_account)
-                                ->setWebsite(); // empty for the moment
+                                ->setWebsite(null); // empty for the moment 
+                        
 
                         try{
                             $success=StudentService::create($student);
@@ -128,38 +132,38 @@
 
                         // user exist
                         $studentService = new StudentService();
-                        $student = $studentService->searchByUser($user->getId());
-                        $_SESSION['idStudent'] = $student->getId();
+                        $student = $studentService->searchByUser($user['id']);
+                        $_SESSION['idStudent'] = $student['id'];
 
                         
 
-                    } // end of student creeation 
+                    } // end of student creation 
 
                 } // end of user creation
 
                 if($user['profil'] == "is_student"){
 
-                // user exist
+                    // user exist
                     $studentService = new StudentService();
-                    $student = $studentService->searchByUser($user->getId());
-                    $_SESSION['idStudent'] = $student->getId();
+                    $student = $studentService->searchByUser($user['id']);
+                    $_SESSION['idStudent'] = $student['id'];
+                    $_SESSION['profil'] = "is_student";
 
+                }elseif($user['profil'] == "is_staff"){
+                    $_SESSION['profil'] = "is_staff";
                 }
-
-                echo "Success !! ";
-                var_dump($student);
                 
                 //relocation if authentification is successfull
-
+                
                 if ($_SESSION['profil']=='is_student' ) {
                     
                     header('location: ../_controller/studentViewController.php');
-                }elseif($_SESSION['profil']="is_staff"){
+                }
+                elseif($_SESSION['profil']=="is_staff"){
                     
                     header('location: ../_controller/adminViewController.php');
                 }
-
-            } //  end auth success
+            } // end auth success
             else {
                 $error_message = "Error Auth";
                 echo "Error Auth ! ";
@@ -176,5 +180,5 @@
         echo "Error Post Empty ! ";
     }
     
-    html();
+    html('Connexion');
 ?>

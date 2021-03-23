@@ -12,6 +12,7 @@ class AuthenticationService{
         $data = array("username" => $username, "password" => $password);
         // set headers
         $headers = array('Content-Type:multipart/form-data');
+        
         // init curl
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $auth_login_url);
@@ -32,9 +33,9 @@ class AuthenticationService{
         // set vars
         $token = $response->token;
         $user = $response->user;
-
-        $_SESSION['token'] = $token;
         
+        $_SESSION['token'] = $token;
+        array_push($headers, "Authorization: JWT ".$_SESSION['token']);
         return $response;
 
     }

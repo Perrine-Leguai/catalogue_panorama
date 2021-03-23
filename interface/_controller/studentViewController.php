@@ -19,10 +19,12 @@
     }
 
     ////////////////////////////////////////FAKE INITIALISATION////////////////////
-    $_SESSION['idStudent']  = 1;
-
+    
     $session_artwork_obj = ArtworkService::searchBy($_SESSION['idStudent']);
-    $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
+    if($session_artwork_obj!=null){
+        $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
+    }
+    
     
     //display the global html
     html('Catalogue Panorama - Artiste', null, null, null);
@@ -31,7 +33,10 @@
     formCreateArtwork($session_artwork_obj);
 
     //list of updates done by the student
-    updatesList($list_of_updates);
+    if(isset($list_of_updates) && !empty($list_of_updates)){
+       updatesList($list_of_updates); 
+    }
+    
     
     //display the scripts
     scripts('countdown');

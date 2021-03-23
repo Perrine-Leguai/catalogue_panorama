@@ -99,7 +99,7 @@
                 
                 //free the memory
                 $stmt->closeCursor();
-                
+                print_r($data);
                 return $data;
 
             }catch(PDOException $e){

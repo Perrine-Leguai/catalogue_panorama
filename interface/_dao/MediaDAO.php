@@ -47,14 +47,13 @@ require_once(__DIR__.'/../interface/InterfaceDao.php');
             }
         }
 
-        //search media by artwork
+        //search all the medias of one artwork
         public function searchBy(Int $idAw){
             try{
                 //connect to the bdd
                 $db= Connection::connect(); 
 
-                $stmt=$db->prepare("SELECT * FROM medias WHERE id_artwork=:id");
-                $stmt->bindParam(':id', $idAw);
+                $stmt=$db->prepare("SELECT * FROM medias WHERE id_artwork=$idAw");
                 $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -78,13 +78,19 @@
                 //free the memory
                 $stmt->closeCursor();
                 
-                //stock info into Artwork object
-                $artwork = new Artwork();
-                $artwork->setId($data['id'])->setTitle($data['title'])->setSubtitle($data['subtitle'])
+                
+                if($data!=null){
+                    //stock info into Artwork object
+                    $artwork = new Artwork();
+                    $artwork->setId($data['id'])->setTitle($data['title'])->setSubtitle($data['subtitle'])
                         ->setType($data['type'])->setDuration($data['duration'])
                         ->setSynopsisShort($data['synopsis_short'])->setSynopsisLong($data['synopsis_long'])
                         ->setThanks($data['thanks'])
                         ->setCreatedAt($data['created_at'])->setIdStudent($data['id_student'])->setSeen($data['seen']);
+                }elseif($data==null){
+                    $artwork=null;
+                }
+                
                 
                 return $artwork;
 
