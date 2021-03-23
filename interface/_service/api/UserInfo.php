@@ -10,7 +10,7 @@
             $headers = 'Content-Type: application/json';
 
             // add token if not empty (to have full user infos)
-            if ($_SESSION['token']){
+            if ($_SESSION['token'])
             
             $authorization = "Authorization: JWT ".$_SESSION['token'];
     
@@ -38,7 +38,7 @@
 			
             return $response;
 
-            }
+            
             
         }
 
