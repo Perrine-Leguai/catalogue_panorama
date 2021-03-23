@@ -41,6 +41,7 @@
     $student_list= UserService::searchAllStudents();
     $artwork_list= ArtworkService::searchAll();
     
+    
     //display gloabl html
     html('Catalogue Panorama - admin', $_SESSION['profil'], $student_list, $artwork_list);
     

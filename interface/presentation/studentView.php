@@ -27,29 +27,27 @@
                     value="<?php if(!empty($artwork) || $artwork != null){ echo $artwork->getDuration();} ?>">
             </div>
             <div class="form-group col-11 m-2">
-                <label for="synopsis_court">Synopsis court</label>
-                <textarea class="form-control" id="synopsis_court" rows="3" name="short_synopsis" >
-                    <?php if(!empty($artwork) || $artwork != null){ echo $artwork->getSynopsisShort() ;}?>
-                </textarea>
+                <label for="synopsis_short">Synopsis court</label>
+                <textarea class="form-control" id="synopsis_short" rows="3" name="synopsis_short" ><?php
+                    if(!empty($artwork) || $artwork != null){ echo $artwork->getSynopsisShort() ;}?></textarea>
             </div>
             <div class="form-group col-11 m-2">
                 <label for="synopsis_long">Synopsis long</label>
-                <textarea class="form-control" id="synopsis_long" rows="5" name="long_synopsis" >
-                    <?php if(!empty($artwork) || $artwork != null){ echo $artwork->getSynopsisLong() ;} ?>
-                </textarea>
+                <textarea class="form-control" id="synopsis_long" rows="5" name="synopsis_long" ><?php 
+                    if(!empty($artwork) || $artwork != null){ echo $artwork->getSynopsisLong() ;} ?></textarea>
             </div>
             <div class="form-group col-11 m-2">
                 <label for="thanks">Remerciements</label>
-                <textarea class="form-control" id="thanks" rows="3" name="thanks" >
-                    <?php if(!empty($artwork) || $artwork != null){ echo $artwork->getThanks() ;} ?>
-                </textarea>
+                <textarea class="form-control" id="thanks" rows="3" name="thanks" ><?php 
+                    if(!empty($artwork) || $artwork != null){ echo $artwork->getThanks() ;} ?></textarea>
             </div>
             <div class="form-group col-11 m-2">
                 <label for="media_input">Example file input</label>
                 <input type="file" class="form-control-file" id="media_input"  name="media">
             </div>
             <input type="submit" class="btn btn-outline-secondary mt-4" 
-                value="<?php if(!empty($artwork) || $artwork != null){ echo 'Modifier ';}else{echo 'Ajouter ';};?>"></input>
+                value="<?php if(!empty($artwork) || $artwork != null){ echo 'Modifier ';}else{echo 'Ajouter ';};?>">
+            </input>
         </form>
 <?php   } ?>
 

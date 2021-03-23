@@ -9,6 +9,7 @@
                     <label for="student_list"><h5>Liste des artistes</h5></label>
                     <div id="student_list" class="mb-4">
                         <?php foreach($student_list as $student){
+                            
                             $href= "contentViewController.php?artist=".$student['id'];
                             echo'<a href='.$href.'>'.$student['first_name']." ".$student['last_name'].'</a><br>';
                         }
