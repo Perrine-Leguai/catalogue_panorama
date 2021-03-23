@@ -4,7 +4,7 @@
     require_once(__DIR__.'/../interface/InterfaceDao.php');
     require_once(__DIR__.'/../_class/Artwork.php');
 
-    class ArtworkDAO extends Connection implements InterfaceDao{
+    class ArtworkDAO extends Connection {
         
 
         //add new artwork

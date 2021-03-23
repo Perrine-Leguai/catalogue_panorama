@@ -3,7 +3,7 @@
     require_once(__DIR__.'/Connection.php');
     require_once(__DIR__.'/../interface/InterfaceDao.php');
 
-    class StudentDAO extends Connection implements InterfaceDao{
+    class StudentDAO extends Connection {
 
         //add new artwork
         public function create(Object $student){
@@ -91,8 +91,7 @@
                 //connect to the bdd
                 $db= Connection::connect(); 
 
-                $stmt=$db->prepare("SELECT * FROM student WHERE id_user=:idUser");
-                $stmt->bindParam(':idUser', $idUser);
+                $stmt=$db->prepare("SELECT * FROM student WHERE id_user=$idUser");
                 $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
