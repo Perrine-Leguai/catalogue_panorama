@@ -1,7 +1,6 @@
 <?php
     require_once(__DIR__.'/../exception/DAOException.php');
     require_once(__DIR__.'/Connection.php');
-    require_once(__DIR__.'/../interface/InterfaceDao.php');
     require_once(__DIR__.'/../_class/Artwork.php');
 
     class ArtworkDAO extends Connection {
