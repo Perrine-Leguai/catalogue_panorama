@@ -30,6 +30,19 @@
                 throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
             }
         }
+
+        //delete media according its id
+        public static function delete(Int $idMedia){
+            echo "madame est service ".$idMedia."<br>";
+            try{
+                $dao = new mediaDAO();
+                //return an information regarding the request (success or failure)
+                return $dao->delete($idMedia);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
         
     }
 ?>

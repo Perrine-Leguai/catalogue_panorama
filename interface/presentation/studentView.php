@@ -51,9 +51,9 @@
             <?php if(!empty($artwork)){ ?>
                 <div id="show_medias" class="row m-2">
                     <?php foreach($media_list as $media){ ?>
-                        <div class="media_display">
-                            <a href=<?="../_controller/studentViewController.php?delete=".$artwork->getId()?> >
-                                <img src="<?= $media->getMedia() ; ?>" alt="<?= $media->getTitle() ?>" class="image" style="opacity: 1; display: block; width: 160px; height:auto; transition: .5s ease">                        
+                        <div class="media_display" style="width:auto; height: auto;">
+                            <a href=<?="../_controller/studentViewController.php?delete=".$media->getId()?> >
+                                <img src="<?= $media->getMedia() ; ?>" alt="<?= $media->getTitle() ?>" class="img-thumbnail" style="opacity: 1; display: block; height: 160px; width:auto; transition: .5s ease">                        
                             </a>
                             
                         </div>

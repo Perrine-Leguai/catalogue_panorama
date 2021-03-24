@@ -37,8 +37,7 @@ require_once(__DIR__.'/Connection.php');
                 //connect to the bdd
                 $db= Connection::connect(); 
 
-                $stmt=$db->prepare("DELETE FROM medias WHERE id=:id"); 
-                $stmt->bindParam(':id', $idMedia);
+                $stmt=$db->prepare("DELETE FROM medias WHERE id=$idMedia");
                 $rs=$stmt->execute();
 
                 return $rs;

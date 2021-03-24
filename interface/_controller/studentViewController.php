@@ -23,14 +23,18 @@
     elseif($_SESSION['profil']!="is_student"){
         header('location: ../_controller/connectionViewController.php?logout');
     }
-
-    $session_artwork_obj = ArtworkService::searchBy($_SESSION['idStudent']);
-    if($session_artwork_obj!=null){
-        $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
-    }
-    $medias_list = MediaService::searchBy($session_artwork_obj->getId());
-    print_r($medias_list);
     
+    //catch all artwork infos of the logged person
+    $session_artwork_obj = ArtworkService::searchBy($_SESSION['idStudent']);
+
+    //if there is already an artwork created
+    if($session_artwork_obj!=null){
+        //catch the updates
+        $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
+        //catch all the medias
+        $medias_list = MediaService::searchBy($session_artwork_obj->getId());
+    }
+ 
     //display the global html
     html('Catalogue Panorama - Artiste', null, null, null);
 
@@ -42,11 +46,8 @@
        updatesList($list_of_updates); 
     }
     
-    
     //display the scripts
     scripts('countdown');
-
-    
 
     //check if there is any information on the url
     if(isset($_GET) && !empty($_GET)){
@@ -121,7 +122,7 @@
                 $old_content_array = array_slice((array) $session_artwork_obj, 1, 7);
                 
                 $new_content_array = [$title, $subtitle, $type, $duration, $short_syn, $long_syn, $thanks];
-                
+
                 try{
                     //create updates obj
                     $i=0;
@@ -169,7 +170,19 @@
                 }catch(ServiceException $serviceException){
                     echo $ServiceException->getCode();
                 }  
-            }      
+            }  
+        }
+
+        //delete medias
+        elseif(isset($_GET['delete']) && !empty($_GET['delete'])){
+            $id = $_GET['delete'];
+            
+            try{
+                $rs=MediaService::delete($id);
+                
+            }catch(ServiceException $serviceException){
+                echo $ServiceException->getCode();
+            }
         }
     }
 ?>

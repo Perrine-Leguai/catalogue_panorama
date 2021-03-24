@@ -22,11 +22,11 @@
     -ms-transform: translate(-50%, -50%)
   }
   
-  .show_medias .image {
+  .show_medias:hover .image {
     opacity: 0.3;
   }
   
-  .show_medias .middle {
+  .show_medias:hover .middle {
     opacity: 1;
   }
   
