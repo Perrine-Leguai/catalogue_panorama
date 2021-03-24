@@ -33,6 +33,7 @@ require_once(__DIR__.'/Connection.php');
 
         //delete a media
         public function delete(Int $idMedia){
+            echo "etienne DAO".$idMedia."<br>";
             try{
                 //connect to the bdd
                 $db= Connection::connect(); 

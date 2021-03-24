@@ -1,7 +1,7 @@
 <?php
     function checkFiles($file, $artist_name){
 
-        $target_dir = "../img.gitignore/";
+        $target_dir = "../img/";
         $folder_dir= $target_dir.$artist_name."/";
         //create an artist name folder to record medias if doesn't exist yet
         if(!file_exists($folder_dir)){
