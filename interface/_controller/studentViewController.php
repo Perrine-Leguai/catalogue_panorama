@@ -1,13 +1,19 @@
 <?php
+    require_once(__DIR__.'/filesCheck.php');
+
+    require_once(__DIR__.'/../_class/Media.php');
+    require_once(__DIR__.'/../_class/Artwork.php');
+    require_once(__DIR__.'/../_class/Update.php');
 
     require_once(__DIR__.'/../_service/UserService.php');
+    require_once(__DIR__.'/../_service/MediaService.php');
     require_once(__DIR__.'/../_service/StudentService.php');
     require_once(__DIR__.'/../_service/ArtworkService.php');
     require_once(__DIR__.'/../_service/UpdateService.php');
+
     require_once(__DIR__.'/../presentation/communHtml.php');
     require_once(__DIR__.'/../presentation/studentView.php');
-    require_once(__DIR__.'/../_class/Artwork.php');
-    require_once(__DIR__.'/../_class/Update.php');
+    
 
     session_start();
     //redirection if not connected or don't have access
@@ -17,7 +23,7 @@
     elseif($_SESSION['profil']!="is_student"){
         header('location: ../_controller/connectionViewController.php?logout');
     }
-    
+
     $session_artwork_obj = ArtworkService::searchBy($_SESSION['idStudent']);
     if($session_artwork_obj!=null){
         $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
@@ -53,8 +59,15 @@
                 $short_syn      = htmlentities($_POST['synopsis_short']);
                 $long_syn       = htmlentities($_POST['synopsis_long']);
                 $thanks         = htmlentities($_POST['thanks']);
-                $img            = checkFiles($_FILES);
+
+
+                if(isset($_FILES) && !empty($_FILES)){
+                    //stock the picture on the server and return an url to store in the database
+                    $img    = checkFiles($_FILES, $_SESSION['full_name']); 
+                }
                 
+                
+
                 //if it's a creation
             if($_GET['action']=="create"){
                 
@@ -72,15 +85,26 @@
                     ->setSynopsisShort($short_syn)->setSynopsisLong($long_syn)
                     ->setThanks($thanks)
                     ->setCreatedAt($created_date)->setIdStudent($id_student)->setSeen($seen);
+
+                
+
                 
                 try{
                     //send the request throw several layer. 
-                    //can catch a success if operation happened well - to display a success alert 1=success 0=fail
-                   $success=ArtworkService::create($aw);
-                   if($success){
-                       //send to the pre load artwork form
-                      header('location: ../_controller/studentViewController'); 
-                   }
+                    //catch the id of the created artwork
+                    $id_success=ArtworkService::create($aw);
+
+                    if($id_success){
+                        //send to the pre load artwork form
+                        header('location: ../_controller/studentViewController'); 
+                    }
+
+                    //create media related to this artwork
+                    $media  = new Media();
+                    $media  ->setIdArtwork($id_success)->setTitle($title)->setDescription("teaser media")
+                            ->setMedia($img);
+
+                    MediaService::create($media);
                    
 
                 }catch(ServiceException $serviceException){

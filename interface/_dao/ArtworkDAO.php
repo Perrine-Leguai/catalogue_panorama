@@ -38,8 +38,9 @@
                 $stmt->bindParam(':seen', $seen);
 
                 $rs = $stmt->execute();
-                //return rs to display success message after adding
-                return $rs;
+                
+                //return the id of the last database entrance
+                return $db->lastInsertId();
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());
             }

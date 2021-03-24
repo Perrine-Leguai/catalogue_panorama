@@ -74,6 +74,7 @@
                          ->setLastName($api_data_user->last_name)
                          ->setEmail($auth->user->email)
                          ->setProfil($profile_str);
+                    
 
                     // CREATE User
                     try{
@@ -140,6 +141,10 @@
                     } // end of student creation 
 
                 } // end of user creation
+
+                //initialize $_SESSION['ful_name]
+                $_SESSION['full_name']=strval($user['first_name']."_".$user['last_name']);
+                
 
                 if($user['profil'] == "is_student"){
 

@@ -14,8 +14,9 @@
             </div>
             <div class="form-group col-11 m-2">
                 <label for="type_input">Type</label>
-                <select class="form-control" id="type_input" name="type" 
-                    value="<?php if(!empty($artwork) || $artwork != null){ echo $artwork->getType();} ?>">
+                <select class="form-control" id="type_input" name="type">
+                <option selected="selected" 
+                    value="<?php if(!empty($artwork) || $artwork != null){ echo $artwork->getType();} ?>"><?php if(!empty($artwork) || $artwork != null){ echo $artwork->getType();} ?> </option>
                 <option value="film">Film</option>
                 <option value="installation">Installation</option>
                 <option value="performance">Performance</option>

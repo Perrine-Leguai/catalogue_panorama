@@ -11,7 +11,7 @@
             try{
 
                 $dao = new ArtworkDAO();
-                //catch create result, if well or bad done
+                //catch the id of the created artwork
                 return  $dao->create($artwork);
 
             }catch(DAOException $serviceException){

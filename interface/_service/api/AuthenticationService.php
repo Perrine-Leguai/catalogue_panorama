@@ -66,7 +66,7 @@ class AuthenticationService{
         
         // clear session token
         $_SESSION['token'] = "";
-        
+        session_destroy(); 
         return $response;
     }   
 }

@@ -19,7 +19,8 @@ require_once(__DIR__.'/Connection.php');
                 //binding params
                 $stmt->bindParam(':idAw', $id_artwork);
                 $stmt->bindParam(':title', $title ); 
-                $stmt->bindParam(':description', $description); 
+                $stmt->bindParam(':description', $description);
+                $stmt->bindParam(':media', $media); 
 
                 $rs = $stmt->execute();
                 //return rs to display success message after adding
