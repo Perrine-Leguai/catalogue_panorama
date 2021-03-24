@@ -28,12 +28,14 @@
     if($session_artwork_obj!=null){
         $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
     }
+    $medias_list = MediaService::searchBy($session_artwork_obj->getId());
+    print_r($medias_list);
     
     //display the global html
     html('Catalogue Panorama - Artiste', null, null, null);
 
     //form for creation and update
-    formCreateArtwork($session_artwork_obj);
+    formCreateArtwork($session_artwork_obj, $medias_list);
 
     //list of updates done by the student
     if(isset($list_of_updates) && !empty($list_of_updates)){

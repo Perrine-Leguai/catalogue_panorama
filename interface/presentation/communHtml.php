@@ -23,7 +23,11 @@
                 <link 
                     rel="stylesheet" 
                     type="text/css" 
-                    href="../css/countdown.css"> 
+                    href="../css/countdown.css">
+                <link 
+                    rel="stylesheet" 
+                    type="text/css" 
+                    href="../css/medias.css">  
                 
             </head>
             <body>

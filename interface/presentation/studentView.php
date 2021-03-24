@@ -1,5 +1,6 @@
 <?php 
-    function formCreateArtwork(object $artwork=null){ ?>
+    function formCreateArtwork(object $artwork=null, $media_list=null){ ?>
+        
         <form action="../_controller/studentViewController.php?action=<?php if($artwork==null || empty($artwork)){echo "create";}else{echo "edit";} ?>" 
             method="POST" enctype="multipart/form-data" class='col-11 shadow p-3 mb-5 bg-white rounded'>
             <div class="form-group col-11 m-2">
@@ -46,6 +47,20 @@
                 <label for="media_input">Example file input</label>
                 <input type="file" class="form-control-file" id="media_input"  name="media">
             </div>
+            
+            <?php if(!empty($artwork)){ ?>
+                <div id="show_medias" class="row m-2">
+                    <?php foreach($media_list as $media){ ?>
+                        <div class="media_display">
+                            <a href=<?="../_controller/studentViewController.php?delete=".$artwork->getId()?> >
+                                <img src="<?= $media->getMedia() ; ?>" alt="<?= $media->getTitle() ?>" class="image" style="opacity: 1; display: block; width: 160px; height:auto; transition: .5s ease">                        
+                            </a>
+                            
+                        </div>
+                    <?php }
+
+                echo"</div>";
+            } ?>
             <input type="submit" class="btn btn-outline-secondary mt-4" 
                 value="<?php if(!empty($artwork) || $artwork != null){ echo 'Modifier ';}else{echo 'Ajouter ';};?>">
             </input>

@@ -20,7 +20,7 @@
         }
 
         //search media by artwork
-        public function searchBy(Int $idArtwork){
+        public static function searchBy(Int $idArtwork){
             try{
                 $dao = new mediaDAO();
                 //catch a tab of one row, i.e the student looked for

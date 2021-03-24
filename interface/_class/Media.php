@@ -28,6 +28,20 @@
         }
 
         /**
+         * Set the value of id
+         *
+         * @param $id 
+         *
+         * @return self
+         */
+        public function setId(int $id) : self
+        {
+                $this->id = $id;
+
+                return $this;
+        }
+
+        /**
          * Get the value of id_artwork
          *
          * @return $id_artwork
@@ -122,5 +136,6 @@
 
                 return $this;
         }
+
     }
 ?>

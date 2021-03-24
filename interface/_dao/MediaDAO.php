@@ -56,11 +56,26 @@ require_once(__DIR__.'/Connection.php');
                 $stmt=$db->prepare("SELECT * FROM medias WHERE id_artwork=$idAw");
                 $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
-                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 
                 //free the memory
                 $stmt->closeCursor();
+
+                //transform $data into a tab of obj Medias
+                $i=0;
+                foreach($data as $media){
+                    $media_obj = new Media();
+                    $media_obj ->setId($media['id'])->setTitle($media['title'])->setDescription($media['description'])
+                                ->setMedia($media['media']);
+                    $media_tab[$i]= $media_obj;
+                    $i++;
+                }
+
+                if(!isset($media_tab)){
+                    $media_tab=[];
+                }
                 
+                return $media_tab;
                 return $data;
 
             }catch(PDOException $e){
