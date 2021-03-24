@@ -136,11 +136,12 @@
                             $updated_at     = date("Y-m-d");
                             $id_artwork     = $session_artwork_obj->getId();
 
+                            //create updates obj
                             $update = new Update();
                             $update ->setUpdatedDate($updated_at)->setInputName($input_name)->setOldContent($old_content)
                                     ->setNewContent($new_content)->setIdArtwork($id_artwork)->setIsSeen(0);
 
-                            $update_is_ok = UpdateService::create($update);   
+                            $update_is_ok = UpdateService::create($update);
                         }
                         $i++;
                     }
@@ -153,8 +154,13 @@
                    
                     $success=ArtworkService::update($updated_artwork, $session_artwork_obj->getId());
 
-                    
-                    //send to the pre load artwork form
+                    //create media
+                    //create media related to this artwork
+                    $media  = new Media();
+                    $media  ->setIdArtwork($session_artwork_obj->getId())->setTitle($title)->setDescription("teaser media")
+                            ->setMedia($img);
+
+                    MediaService::create($media);
                    
                     
 
