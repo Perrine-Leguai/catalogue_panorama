@@ -5,12 +5,12 @@
             method="POST" enctype="multipart/form-data" class='col-11 shadow p-3 mb-5 bg-white rounded'>
             <div class="form-group col-11 m-2">
                 <label for="title_Input">Titre</label>
-                <input type="text" class="form-control" id="title_Input" placeholder="Qui a tué Pamela Rose?" name="title" 
+                <input type="text" class="form-control" id="title_Input" placeholder="Titre de votre oeuvre" name="title" 
                     value="<?php if(!empty($artwork) || $artwork != null){ echo $artwork->getTitle();}?>">
             </div>
             <div class="form-group col-11 m-2">
                 <label for="subtitle_Input">Sous-titre</label>
-                <input type="text" class="form-control" id="subtitle_Input" placeholder="Deuxième volet" name="subtitle" 
+                <input type="text" class="form-control" id="subtitle_Input" placeholder="Sous-titre" name="subtitle" 
                     value="<?php if(!empty($artwork) || $artwork != null){ echo $artwork->getSubtitle() ;}?>">
             </div>
             <div class="form-group col-11 m-2">
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group col-11 m-2">
                 <label for="duration_Input">Durée</label>
-                <input type="text" class="form-control" id="duration_Input" placeholder="01:59:59" name="duration" 
+                <input type="text" class="form-control" id="duration_Input" placeholder="Indiquer la durée de votre film" name="duration" 
                     value="<?php if(!empty($artwork) || $artwork != null){ echo $artwork->getDuration();} ?>">
             </div>
             <div class="form-group col-11 m-2">
@@ -62,7 +62,7 @@
                 echo"</div>";
             } ?>
             <input type="submit" class="btn btn-outline-secondary mt-4" 
-                value="<?php if(!empty($artwork) || $artwork != null){ echo 'Modifier ';}else{echo 'Ajouter ';};?>">
+                value="Enregistrer">
             </input>
         </form>
 <?php   } ?>
