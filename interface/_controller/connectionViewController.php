@@ -143,7 +143,7 @@
                 } // end of user creation
 
                 //initialize $_SESSION['ful_name]
-                $_SESSION['full_name']=strval($user['first_name']."_".$user['last_name']);
+                $_SESSION['username']=strval($user['username']);
                 
 
                 if($user['profil'] == "is_student"){
