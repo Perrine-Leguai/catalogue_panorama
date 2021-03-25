@@ -1,8 +1,8 @@
 <?php
-    function checkFiles($file, $artist_name){
+    function checkFiles($file, $folder_name){
 
         $target_dir = "../img/";
-        $folder_dir= $target_dir.$artist_name."/";
+        $folder_dir= $target_dir.$folder_name."/";
         //create an artist name folder to record medias if doesn't exist yet
         if(!file_exists($folder_dir)){
             mkdir($folder_dir, 0777, true);
@@ -14,7 +14,7 @@
 
         $uploadOk=1;
         // Check file size
-        if ($file["media"]["size"] > 1000000) {
+        if ($file["media"]["size"] > 40000000) {
             echo "Sorry, your file is too large.";
             $uploadOk *= 0;
         }
