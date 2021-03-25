@@ -7,62 +7,62 @@
                 <div class="w-auto"><h4><?=$artist['nickname']?></h4></div>
             </div>
             <div id="bios" class="m-2">
-                <div>
-                    <label for="bio_fr">Bio : </label>
-                    <div id="bio_fr"><?=$artist['bio_fr'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="bio_fr">Bio : </label>
+                    <div class="col-10" id="bio_fr"><?=$artist['bio_fr'] ?></div>
                 </div>
-                <div>
-                    <label for="bio_fr">Bio (version courte): </label>
-                    <div id="bio_fr"><?=$artist['bio_short_fr'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="bio_fr">Bio (version courte): </label>
+                    <div class="col-10" id="bio_fr"><?=$artist['bio_short_fr'] ?></div>
                 </div>
             </div>
             <div id="networks" class="m-2">
-                <div>
-                    <label for="facebook">Facebook : </label>
-                    <div id="facebook"><?=$artist['facebook'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="facebook">Facebook : </label>
+                    <div class="col-10" id="facebook"><?=$artist['facebook'] ?></div>
                 </div>
-                <div>
-                    <label for="twitter">Twitter : </label>
-                    <div id="twitter"><?=$artist['twitter'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="twitter">Twitter : </label>
+                    <div class="col-10" id="twitter"><?=$artist['twitter'] ?></div>
                 </div>
-                <div>
-                    <label for="website">Website : </label>
-                    <div id="website"><?=$artist['website'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="website">Website : </label>
+                    <div class="col-10" id="website"><?=$artist['website'] ?></div>
                 </div>
-                <div>
-                    <label for="email">Email : </label>
-                    <div id="email"><?=$artist['email'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="email">Email : </label>
+                    <div class="col-10" id="email"><?=$artist['email'] ?></div>
                 </div>
             </div>
             <div class="m-2 mt-5">
                 <h5>Information sur l'oeuvre</h5>
-                <div>
-                    <label for="title">Titre : </label>
+                <div class="row">
+                    <label class="col-2" for="title">Titre : </label>
                     <h4 id="title"><?=$artist['title'] ?></h4>
                 </div>
-                <div>
-                    <label for="subtitle">Sous-titre : </label>
-                    <div id="subtitle"><?=$artist['subtitle'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="subtitle">Sous-titre : </label>
+                    <div class="col-10" id="subtitle"><?=$artist['subtitle'] ?></div>
                 </div>
-                <div>
-                    <label for="type">Type : </label>
-                    <div id="type"><?=$artist['type'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="type">Type : </label>
+                    <div class="col-10" id="type"><?=$artist['type'] ?></div>
                 </div>
-                <div>
-                    <label for="duration">Durée : </label>
-                    <div id="duration"><?=$artist['duration'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="duration">Durée : </label>
+                    <div class="col-10" id="duration"><?=$artist['duration'] ?></div>
                 </div>
-                <div>
-                    <label for="synopsis_long">Synopsis (complet) : </label>
-                    <div id="synopsis_long"><?=$artist['synopsis_long'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="synopsis_long">Synopsis (complet) : </label>
+                    <div class="col-10" id="synopsis_long"><?=$artist['synopsis_long'] ?></div>
                 </div>
-                <div>
-                    <label for="synopsis_short">Synopsis (version courte) : </label>
-                    <div id="synopsis_short"><?=$artist['synopsis_short'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="synopsis_short">Synopsis (version courte) : </label>
+                    <div class="col-10" id="synopsis_short"><?=$artist['synopsis_short'] ?></div>
                 </div>
-                <div>
-                    <label for="thanks">Remerciements : </label>
-                    <div id="thanks"><?=$artist['thanks'] ?></div>
+                <div class="row">
+                    <label class="col-2" for="thanks">Remerciements : </label>
+                    <div class="col-10" id="thanks"><?=$artist['thanks'] ?></div>
                 </div>
             </div>
         </div>
