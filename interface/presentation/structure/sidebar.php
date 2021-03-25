@@ -11,7 +11,7 @@
                         <?php foreach($student_list as $student){
                             
                             $href= "contentViewController.php?artist=".$student['id'];
-                            echo'<a href='.$href.'>'.$student['first_name']." ".$student['last_name'].'</a><br>';
+                            echo'<a href='.$href.'>'.ucwords($student['first_name']." ".$student['last_name']).'</a><br>';
                         }
                             ?>
                     </div>
