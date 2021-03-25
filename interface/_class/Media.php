@@ -94,7 +94,7 @@
          *
          * @return $description
          */
-        public function getDescription() : ?string 
+        public function getDescription() : string 
         {
                 return $this->description;
         }
@@ -106,7 +106,7 @@
          *
          * @return self
          */
-        public function setDescription(?string $description) : self
+        public function setDescription(string $description) : self
         {
                 $this->description = $description;
 

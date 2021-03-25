@@ -84,7 +84,7 @@
         /**
          * Get the value of old_content
          */
-        public function getOldContent() :?string
+        public function getOldContent() :string
         {
                 return $this->old_content;
         }
@@ -94,7 +94,7 @@
          *
          * @return self
          */
-        public function setOldContent(?string $old_content) : self
+        public function setOldContent(string $old_content) : self
         {
                 $this->old_content = $old_content;
 
@@ -104,7 +104,7 @@
         /**
          * Get the value of new_content
          */
-        public function getNewContent() :?string
+        public function getNewContent() :string
         {
                 return $this->new_content;
         }
@@ -114,7 +114,7 @@
          *
          * @return self
          */
-        public function setNewContent(?string $new_content) : self
+        public function setNewContent(string $new_content) : self
         {
                 $this->new_content = $new_content;
 
