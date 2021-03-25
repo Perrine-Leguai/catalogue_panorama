@@ -24,7 +24,7 @@
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("INSERT INTO `artwork` VALUES (NULL, :title, :subtitle, :type, :duration, :synoShort, :synoLong, :thanks, :create, :idStudent, :seen)");
+                $stmt = $db->prepare("INSERT INTO artwork VALUES (NULL, :title, :subtitle, :type, :duration, :synoShort, :synoLong, :thanks, :create, :idStudent, :seen)");
                 //binding params
                 $stmt->bindParam(':title', $title ); 
                 $stmt->bindParam(':subtitle', $subtitle); 
@@ -52,7 +52,7 @@
                 //connect to the bdd
                 $db= Connection::connect(); 
 
-                $stmt=$db->prepare("SELECT * from artwork  ORDER BY `artwork`.`title` ASC");
+                $stmt=$db->prepare("SELECT * from artwork  ORDER BY artwork.title ASC");
                 $stmt->execute();
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -107,7 +107,7 @@
                 $db= Connection::connect(); 
 
                 //find all the artwork where seen = false 
-                $stmt=$db->prepare("SELECT * FROM artwork WHERE seen=0 ORDER BY `artwork`.`created_at` ASC");
+                $stmt=$db->prepare("SELECT * FROM artwork WHERE seen=0 ORDER BY artwork.created_at ASC");
                 $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -150,10 +150,10 @@
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("UPDATE `artwork`  SET `title`= :title, `subtitle`= :subtitle, `type`= :type, 
-                                                            `duration`= :duration, `synopsis_short`=:synoS, `synopsis_long`=:synoL, 
-                                                            `thanks`=:thanks
-                                                        WHERE `id`=:id");
+                $stmt = $db->prepare("UPDATE artwork  SET title= :title, subtitle= :subtitle, type= :type, 
+                                                            duration= :duration, synopsis_short=:synoS, synopsis_long=:synoL, 
+                                                            thanks=:thanks
+                                                        WHERE id=:id");
                 //binding params
                 $stmt->bindParam(':title', $title ); 
                 $stmt->bindParam(':subtitle', $subtitle); 
@@ -182,7 +182,7 @@
                 $db= Connection::connect(); 
 
                 //update the seen column
-                $stmt=$db->prepare("UPDATE artwork SET seen='1' WHERE id=$artworkId");
+                $stmt=$db->prepare("UPDATE artwork SET seen=1 WHERE id=$artworkId");
                 $stmt->execute();
 
             }catch(PDOException $e){

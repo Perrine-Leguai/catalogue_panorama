@@ -15,7 +15,7 @@ require_once(__DIR__.'/Connection.php');
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("INSERT INTO `medias` VALUES (NULL, :idAw, :title, :description, :media)");
+                $stmt = $db->prepare("INSERT INTO medias VALUES (NULL, :idAw, :title, :description, :media)");
                 //binding params
                 $stmt->bindParam(':idAw', $id_artwork);
                 $stmt->bindParam(':title', $title ); 

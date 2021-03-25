@@ -21,7 +21,7 @@
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("INSERT INTO `student` VALUES (NULL, :id_user, :nickname, :bio_short_fr, :bio_fr, :bio_short_en, :bio_en, :facebook, :twitter, :website)");
+                $stmt = $db->prepare("INSERT INTO student VALUES (NULL, :id_user, :nickname, :bio_short_fr, :bio_fr, :bio_short_en, :bio_en, :facebook, :twitter, :website)");
                 //binding params
                 $stmt->bindParam(':id_user', $id_user); 
                 $stmt->bindParam(':nickname', $nickname); 

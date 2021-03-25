@@ -18,7 +18,7 @@
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("INSERT INTO `user` VALUES (NULL, :kart_url, :first_name, :last_name, :email, :profil)");
+                $stmt = $db->prepare("INSERT INTO user VALUES (NULL, :kart_url, :first_name, :last_name, :email, :profil)");
                 //binding params
                 $stmt->bindParam(':kart_url', $kart_url ); 
                 $stmt->bindParam(':first_name', $first_name ); 
@@ -57,7 +57,7 @@
                 //connect to the bdd
                 $db= Connection::connect();
 
-                $stmt=$db->prepare("SELECT * from user inner join student on user.id = student.id_user ORDER BY `user`.`first_name` ASC");
+                $stmt=$db->prepare("SELECT * from user inner join student on user.id = student.id_user ORDER BY user.first_name ASC");
                 $stmt->execute();
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
