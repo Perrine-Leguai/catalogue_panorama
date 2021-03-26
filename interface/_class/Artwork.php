@@ -6,6 +6,7 @@
         private $subtitle = "" ;
         private $type ;
         private $duration ;
+        private $bio;
         private $synopsis_long ;
         private $thanks ;
         private $created_at ;
@@ -149,6 +150,26 @@
         }
 
         /**
+         * Get the value of bio
+         */
+        public function getBio() : ?string
+        {
+                return $this->bio;
+        }
+
+        /**
+         * Set the value of bio
+         *
+         * @return self
+         */
+        public function setBio(?string $bio) : self
+        {
+                $this->bio = $bio;
+
+                return $this;
+        }
+
+        /**
          * Get the value of synopsis_long
          *
          * @return $synopsis_long
@@ -267,7 +288,5 @@
 
                 return $this;
         }
-
-        
     }
 ?>

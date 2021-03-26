@@ -60,7 +60,7 @@
         public static function update(Object $objet, int $id_object_to_modify){
             try{
                 $dao = new ArtworkDAO();
-                //catch a tab of all the not seen artwork, where seen = false
+                //return if the request have been successfull or a failure
                 return $dao->update($objet, $id_object_to_modify);
 
             }catch(DAOException $serviceException){
@@ -72,7 +72,9 @@
         public static function updateSeenStatus(int $artworkId){
             
             try{
+                
                 $dao = new ArtworkDAO();
+                //return if the request have been successfull or a failure
                 return $dao->isSeen($artworkId);
 
             }catch(DAOException $serviceException){

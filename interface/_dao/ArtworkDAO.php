@@ -13,6 +13,7 @@
             $subtitle          = $artwork->getSubtitle() ;
             $type              = $artwork->getType() ;
             $duration          = $artwork->getDuration() ;
+            $bio               = $artwork->getBio();
             $synopsis_long     = $artwork->getSynopsisLong();
             $thanks            = $artwork->getThanks() ;
             $created_at        = $artwork->getCreatedAt();
@@ -23,12 +24,13 @@
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("INSERT INTO artwork VALUES (NULL, :title, :subtitle, :type, :duration, :synoLong, :thanks, :create, :idStudent, :seen)");
+                $stmt = $db->prepare("INSERT INTO artwork VALUES (NULL, :title, :subtitle, :type, :duration, :bio, :synoLong, :thanks, :create, :idStudent, :seen)");
                 //binding params
                 $stmt->bindParam(':title', $title ); 
                 $stmt->bindParam(':subtitle', $subtitle); 
                 $stmt->bindParam(':type', $type); 
                 $stmt->bindParam(':duration', $duration);
+                $stmt->bindParam(':bio', $bio);
                 $stmt->bindParam(':synoLong', $synopsis_long ); 
                 $stmt->bindParam(':thanks', $thanks ); 
                 $stmt->bindParam(':create', $created_at ); 
@@ -65,6 +67,7 @@
                         $artwork_obj = new Artwork();
                         $artwork_obj ->setId($artwork['id'])->setTitle($artwork['title'])->setSubtitle($artwork['subtitle'])
                                     ->setType($artwork['type'])->setDuration($artwork['duration'])
+                                    ->setBio($artwork['bio'])
                                     ->setSynopsisLong($artwork['synopsis_long'])
                                     ->setThanks($artwork['thanks'])->setCreatedAt($artwork['created_at'])->setIdStudent($artwork['id_student'])->setSeen($artwork['seen']) ;
                         $artwork_tab[$i]= $artwork_obj;
@@ -73,7 +76,7 @@
                 }elseif($data==null){
                     $artwork_tab[]=null;
                 }
-
+                
                 return $artwork_tab;
                 
             }catch(PDOException $e){
@@ -101,14 +104,13 @@
                     //stock info into Artwork object
                     $artwork = new Artwork();
                     $artwork->setId($data['id'])->setTitle($data['title'])->setSubtitle($data['subtitle'])
-                        ->setType($data['type'])->setDuration($data['duration'])
+                        ->setType($data['type'])->setDuration($data['duration'])->setBio($data['bio'])
                         ->setSynopsisLong($data['synopsis_long'])->setThanks($data['thanks'])
                         ->setCreatedAt($data['created_at'])->setIdStudent($data['id_student'])->setSeen($data['seen']);
                 }elseif($data==null){
                     $artwork=null;
                 }
-                
-                
+            
                 return $artwork;
 
             }catch(PDOException $e){
@@ -135,7 +137,7 @@
                 foreach($data as $artwork){
                     $artwork_obj = new Artwork();
                     $artwork_obj ->setId($artwork['id'])->setTitle($artwork['title'])->setSubtitle($artwork['subtitle'])
-                                ->setType($artwork['type'])->setDuration($artwork['duration'])
+                                ->setType($artwork['type'])->setDuration($artwork['duration'])->setBio($artwork['bio'])
                                 ->setSynopsisLong($artwork['synopsis_long'])
                                 ->setThanks($artwork['thanks'])->setCreatedAt($artwork['created_at'])->setIdStudent($artwork['id_student'])->setSeen($artwork['seen']) ;
                     $artwork_tab[$i]= $artwork_obj;
@@ -158,6 +160,7 @@
             $subtitle          = $artwork->getSubtitle();
             $type              = $artwork->getType();
             $duration          = $artwork->getDuration();
+            $bio               = $artwork ->getBio();
             $synopsis_long     = $artwork->getSynopsisLong();
             $thanks            = $artwork->getThanks() ;
             
@@ -167,7 +170,7 @@
                 $db= Connection::connect();                 
                 //insert request
                 $stmt = $db->prepare("UPDATE artwork  SET title= :title, subtitle= :subtitle, type= :type, 
-                                                            duration= :duration, synopsis_long=:synoL, 
+                                                            duration= :duration, bio= :bio, synopsis_long=:synoL, 
                                                             thanks=:thanks
                                                         WHERE id=:id");
                 //binding params
@@ -175,6 +178,7 @@
                 $stmt->bindParam(':subtitle', $subtitle); 
                 $stmt->bindParam(':type', $type); 
                 $stmt->bindParam(':duration', $duration); 
+                $stmt->bindParam(':bio', $bio);
                 $stmt->bindParam(':synoL', $synopsis_long ); 
                 $stmt->bindParam(':thanks', $thanks ); 
                 $stmt->bindParam(':id', $id); 
@@ -198,7 +202,10 @@
 
                 //update the seen column
                 $stmt=$db->prepare("UPDATE artwork SET seen=1 WHERE id=$artworkId");
-                $stmt->execute();
+                $rs = $stmt->execute();
+               
+                //return rs to display success message after adding
+                return $rs;
 
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());

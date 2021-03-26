@@ -23,8 +23,13 @@ require_once(__DIR__.'/Connection.php');
                 $stmt->bindParam(':media', $media); 
 
                 $rs = $stmt->execute();
-                //return rs to display success message after adding
-                return $rs;
+
+                //status of the request (success or failure)
+                $response['status']     = $stmt->execute();
+                //the id of the last database entrance
+                $response['last_id']    = $db->lastInsertId();                
+                
+                return $response;
 
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());
@@ -76,7 +81,7 @@ require_once(__DIR__.'/Connection.php');
                 }
                 
                 return $media_tab;
-                return $data;
+                
 
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());

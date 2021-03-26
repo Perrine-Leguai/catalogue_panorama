@@ -18,23 +18,27 @@
         header('location: ../_controller/connectionViewController.php?logout');
     }
 
+
     if( isset($_GET) && !empty($_GET)    &&
         isset($_GET['edit']) && !empty($_GET['edit'])){
             if($_GET['type']=="update"){
+                //call service function that turn update from not seen to seen
                 UpdateService::update($_GET['edit']);
+                //catch the lists of all updates and artwork not seen
                 $not_seen_updates = UpdateService::searchByNotSeen() ;
                 $not_seen_artwork = ArtworkService::searchByNotSeen();
+
             }elseif($_GET['type']=="artwork"){
-                
+                //call service function that turn artwork from not seen to seen
                 ArtworkService::updateSeenStatus($_GET['edit']);
+                //catch the lists of all updates and artwork not seen
                 $not_seen_artwork = ArtworkService::searchByNotSeen();
                 $not_seen_updates = UpdateService::searchByNotSeen() ;
             }   
     }else{
-        
+        //catch the list of all updates and artwork not seen
         $not_seen_updates = UpdateService::searchByNotSeen() ;
         $not_seen_artwork = ArtworkService::searchByNotSeen();
-        $array= array_merge($not_seen_artwork, $not_seen_updates);
     }
     
     //load datas to send into the sidebar through html()

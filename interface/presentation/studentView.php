@@ -31,7 +31,7 @@
             <div class="form-group col-11 m-2">
                 <label for="synopsis_short">Synopsis court</label>
                 <textarea class="form-control" id="synopsis_short" rows="3" name="synopsis_short" ><?php
-                    if(!empty($artwork) || $artwork != null){ echo $artwork->getSynopsisShort() ;}?></textarea>
+                    if(!empty($artwork) || $artwork != null){ echo $artwork->getBio() ;}?></textarea>
             </div>
             <div class="form-group col-11 m-2">
                 <label for="synopsis_long">Synopsis long</label>
