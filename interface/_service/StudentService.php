@@ -11,7 +11,7 @@
             try{
 
                 $dao = new StudentDAO();
-                //catch create result, if well or bad done
+                //array of the request status + the id of student last entrance into the database
                 return  $dao->create($student);
 
             }catch(DAOException $serviceException){
@@ -24,7 +24,7 @@
             try{
 
                 $dao = new StudentDAO();
-                //catch a tab of all students in the database
+                //array of all students in the database
                 return $dao->searchAll();
                 
             }catch(DAOException $serviceException){

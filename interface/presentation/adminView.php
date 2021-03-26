@@ -49,7 +49,7 @@
                             <div class="col-6 "><?=$updated_artwork->getType() ?></div>
                         </div>
                         <div class="row mt-3 m-2">
-                            <div class="d-inline-flex "><?=$updated_artwork->getSynopsisShort() ?></div>
+                            <div class="d-inline-flex "><?=$updated_artwork->getBio() ?></div>
                             <div class="d-inline-flex "><?=$updated_artwork->getSynopsisLong() ?></div>
                         </div>
                         <div class="row mt-3 m-2">

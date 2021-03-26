@@ -5,10 +5,7 @@ require_once(__DIR__.'/User.php');
         private $id ;
         private $id_user ;
         private $nickname ;
-        private $bio_short_fr ;
-        private $bio_fr ;
-        private $bio_short_en ;
-        private $bio_en ;
+        private $bio ;
         private $facebook ;
         private $twitter ;
         private $website ;
@@ -20,10 +17,7 @@ require_once(__DIR__.'/User.php');
             return  "[id] :" . $this->id .
                     "[id_user] :" . $this->id_user .
                     "[nickname] :" . $this->nickname  .
-                    "[bio_short_fr] :" . $this->bio_short_fr  .
-                    "[bio_fr] :" . $this->bio_fr  .
-                    "[bio_short_en] :" . $this->bio_short_en  .
-                    "[bio_en] :" . $this->bio_en . 
+                    "[bio] :" . $this->bio . 
                     "[facebook] :" . $this->facebook  .
                     "[twitter] :" . $this->twitter  .
                     "[website] :" . $this->website ;
@@ -70,7 +64,7 @@ require_once(__DIR__.'/User.php');
          *
          * @return $nickname
          */
-        public function getNickname() : string
+        public function getNickname() : ?string
         {
                 return $this->nickname;
         }
@@ -82,105 +76,35 @@ require_once(__DIR__.'/User.php');
          *
          * @return self
          */
-        public function setNickname(string $nickname) : self
+        public function setNickname(?string $nickname) : self
         {
                 $this->nickname = $nickname;
 
                 return $this;
         }
 
+        
+
         /**
-         * Get the value of bio_short_fr
+         * Get the value of bio
          *
-         * @return $bio_short_fr
+         * @return $bio
          */
-        public function getBioShortFr() : string
+        public function getBio() : ?string 
         {
-                return $this->bio_short_fr;
+                return $this->bio;
         }
 
         /**
-         * Set the value of bio_short_fr
+         * Set the value of bio
          *
-         * @param $bio_short_fr 
+         * @param $bio
          *
          * @return self
          */
-        public function setBioShortFr(string $bio_short_fr) : self
+        public function setBio(?string $bio) : self
         {
-                $this->bio_short_fr = $bio_short_fr;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of bio_fr
-         *
-         * @return $bio_fr
-         */
-        public function getBioFr() :string
-        {
-                return $this->bio_fr;
-        }
-
-        /**
-         * Set the value of bio_fr
-         *
-         * @param $bio_fr
-         *
-         * @return self
-         */
-        public function setBioFr(string $bio_fr) : self
-        {
-                $this->bio_fr = $bio_fr;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of bio_short_en
-         *
-         * @return $bio_short_en
-         */
-        public function getBioShortEn() : string
-        {
-                return $this->bio_short_en;
-        }
-
-        /**
-         * Set the value of bio_short_en
-         *
-         * @param $bio_short_en 
-         *
-         * @return self
-         */
-        public function setBioShortEn(string $bio_short_en) : self
-        {
-                $this->bio_short_en = $bio_short_en;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of bio_en
-         *
-         * @return $bio_en
-         */
-        public function getBioEn() : string 
-        {
-                return $this->bio_en;
-        }
-
-        /**
-         * Set the value of bio_en
-         *
-         * @param $bio_en
-         *
-         * @return self
-         */
-        public function setBioEn(string $bio_en) : self
-        {
-                $this->bio_en = $bio_en;
+                $this->bio = $bio;
 
                 return $this;
         }
@@ -190,7 +114,7 @@ require_once(__DIR__.'/User.php');
          *
          * @return $facebook
          */
-        public function getFacebook() :string
+        public function getFacebook() :?string
         {
                 return $this->facebook;
         }
@@ -202,7 +126,7 @@ require_once(__DIR__.'/User.php');
          *
          * @return self
          */
-        public function setFacebook(string $facebook) : self
+        public function setFacebook(?string $facebook) : self
         {
                 $this->facebook = $facebook;
 
@@ -214,7 +138,7 @@ require_once(__DIR__.'/User.php');
          *
          * @return $twitter
          */
-        public function getTwitter() :string
+        public function getTwitter() :?string
         {
                 return $this->twitter;
         }
@@ -226,7 +150,7 @@ require_once(__DIR__.'/User.php');
          *
          * @return self
          */
-        public function setTwitter(string $twitter) : self
+        public function setTwitter(?string $twitter) : self
         {
                 $this->twitter = $twitter;
 
@@ -238,7 +162,7 @@ require_once(__DIR__.'/User.php');
          *
          * @return $website
          */
-        public function getWebsite() 
+        public function getWebsite() : ?string
         {
                 return $this->website;
         }
@@ -250,7 +174,7 @@ require_once(__DIR__.'/User.php');
          *
          * @return self
          */
-        public function setWebsite($website) : self
+        public function setWebsite(?string $website) : self
         {
                 $this->website = $website;
 

@@ -45,7 +45,6 @@
             
             $username = $api_data_user[0]->username;
             
-            
             // try to log in
             $authService = new AuthenticationService();
             $auth = $authService->login($username, $password);
@@ -114,10 +113,7 @@
                         $student  = new Student();
                         $student->setIdUser($user['id'])
                                 ->setNickname($api_data_artist->nickname)
-                                ->setBioShortFr($api_data_artist->bio_short_fr)
-                                ->setBioShortEn($api_data_artist->bio_short_en)
-                                ->setBioFr($api_data_artist->bio_fr)
-                                ->setBioEn($api_data_artist->bio_en)
+                                ->setBio($api_data_artist->bio)
                                 ->setFacebook($api_data_artist->facebook_profile)
                                 ->setTwitter($api_data_artist->twitter_account)
                                 ->setWebsite(null); // empty for the moment 
