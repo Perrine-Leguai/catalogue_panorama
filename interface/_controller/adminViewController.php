@@ -38,7 +38,10 @@
     }
     
     //load datas to send into the sidebar through html()
+    //tab of student obj
     $student_list= UserService::searchAllStudents();
+    
+    //tab of artwork obj
     $artwork_list= ArtworkService::searchAll();
     
     

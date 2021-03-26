@@ -9,9 +9,8 @@
         public static function create(Object $artwork){
 
             try{
-
                 $dao = new ArtworkDAO();
-                //catch the id of the created artwork
+                //catch a response tab , containing the status of the request and the last id entrance
                 return  $dao->create($artwork);
 
             }catch(DAOException $serviceException){
@@ -24,7 +23,7 @@
             try{
 
                 $dao = new ArtworkDAO();
-                //catch a tab of all artworks in the database
+                //catch a tab of all artworks as objects in the database
                 return $dao->searchAll();
                 
             }catch(DAOException $serviceException){

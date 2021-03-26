@@ -19,8 +19,9 @@
                     <label for="artwork_list"><h5>Liste des oeuvres</h5></label>
                     <div id="artwork_list" class="mb-4">
                         <?php foreach($artwork_list as $artwork){
-                            $href="contentViewController.php?artwork=".$artwork['id'];
-                            echo'<a href='.$href.'>'.$artwork['title'].'</a><br>';
+                            
+                            $href="contentViewController.php?artwork=".$artwork->getId();
+                            echo'<a href='.$href.'>'.$artwork->getTitle().'</a><br>';
                         }
                             ?>
                     </div>
