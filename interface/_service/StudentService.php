@@ -11,7 +11,7 @@
             try{
 
                 $dao = new StudentDAO();
-                //catch create result, if well or bad done
+                //array of the request status + the id of student last entrance into the database
                 return  $dao->create($student);
 
             }catch(DAOException $serviceException){
@@ -19,12 +19,12 @@
             }
         }
 
-        //search all student 
+        //search all students 
         public function searchAll(){
             try{
 
                 $dao = new StudentDAO();
-                //catch a tab of all students in the database
+                //array of all students in the database
                 return $dao->searchAll();
                 
             }catch(DAOException $serviceException){
@@ -32,8 +32,8 @@
             }
         }
 
-        //search one student
-        public function searchBy(Int $idStudent){
+        //search one student by its id
+        public static function searchBy(Int $idStudent){
             try{
                 $dao = new StudentDAO();
                 //catch a tab of one row, i.e the student looked for
@@ -43,6 +43,31 @@
                 throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
             }
         }
+
+        //search one student by id user
+        public function searchByUser(Int $idUser){
+            try{
+                $dao = new StudentDAO();
+                //catch a tab of one row, i.e the student looked for
+                return $dao->searchByUser($idUser);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
+
+        //search one student by its artwork id
+        public static function searchByArtwork($idArtwork){
+            try{
+                $dao = new StudentDAO();
+                //catch a tab of one row, i.e the student looked for
+                return $dao->searchByArtwork($idArtwork);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
+
 
         // public function update(Object $objet, int $idOdbjectToModify){
 

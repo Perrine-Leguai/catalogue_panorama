@@ -1,5 +1,7 @@
 <?php
-    function html(string $title){ ?>
+    require_once(__DIR__.'/structure/sidebar.php');
+
+    function html(string $title, $session=null, $students=null, $artworks=null){ ?>
         <html lang="fr">
             <head>
                 <title><?php echo $title  ?></title>
@@ -18,13 +20,21 @@
                     rel="stylesheet" 
                     type="text/css" 
                     href="../css/mainStyle.css">
+                <link 
+                    rel="stylesheet" 
+                    type="text/css" 
+                    href="../css/countdown.css">
+                <link 
+                    rel="stylesheet" 
+                    type="text/css" 
+                    href="../css/medias.css">  
                 
             </head>
             <body>
             <div class="container-fluid m-2">
         
                 <div class="row">
-                    <?php include 'structure/sidebar.php' ?>
+                    <?php sidebar($session, $students, $artworks) ?>
                     <div class="col-10">
                         <?php include 'structure/header.php' ?>
                         <div id="changingInside">                      

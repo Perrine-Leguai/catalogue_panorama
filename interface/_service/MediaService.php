@@ -11,7 +11,7 @@
             try{
 
                 $dao = new MediaDAO();
-                //catch create result, if well or bad done
+                //catch a response tab , containing the status of the request and the last id entrance
                 return  $dao->create($media);
 
             }catch(DAOException $serviceException){
@@ -20,11 +20,24 @@
         }
 
         //search media by artwork
-        public function searchBy(Int $idArtwork){
+        public static function searchBy(Int $idArtwork){
             try{
                 $dao = new mediaDAO();
-                //catch a tab of one row, i.e the student looked for
+                //catch a tab of all media obj related to the Artwork identified by the id
                 return $dao->searchBy($idArtwork);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
+
+        //delete media according its id
+        public static function delete(Int $idMedia){
+            
+            try{
+                $dao = new mediaDAO();
+                //return if the request has been successfull or a failure
+                return $dao->delete($idMedia);
 
             }catch(DAOException $serviceException){
                 throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());

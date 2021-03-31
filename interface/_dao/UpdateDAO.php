@@ -20,7 +20,7 @@
                 $db= Connection::connect();
 
                 //insert request
-                $stmt = $db->prepare("INSERT INTO `updates` VALUES (NULL, :updated_date, :input_name, :old_content, :new_content, :id_artwork, :is_seen)");
+                $stmt = $db->prepare("INSERT INTO updates VALUES (NULL, :updated_date, :input_name, :old_content, :new_content, :id_artwork, :is_seen)");
 
                 //binding params
                 $stmt->bindParam(':updated_date', $updated_date); 
@@ -65,6 +65,10 @@
                     $update_tab[$i]= $update_obj;
                     $i++;
                 }
+
+                if(!isset($update_tab)){
+                    $update_tab=[];
+                }
                 
                 return $update_tab;
 
@@ -80,21 +84,26 @@
                 $db= Connection::connect(); 
 
                 //find all the updates not seen yet 
-                $stmt=$db->prepare("SELECT * FROM updates WHERE seen='false' ORDER BY `updates`.`updated_date` ASC");
+                $stmt=$db->prepare("SELECT * FROM updates WHERE seen=0 ORDER BY updates.updated_date ASC");
                 $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $stmt->closeCursor();
                 //transform $data into a tab of obj Update
-                $i=0;
-                foreach($data as $update){
-                    $update_obj = new Update();
-                    $update_obj ->setId($update['id'])->setUpdatedDate($update['updated_date'])->setInputName($update['input_name'])
-                                ->setOldContent($update['old_content'])->setNewContent($update['new_content'])
-                                ->setIdArtwork($update['id_artwork'])->setIsSeen($update['seen']) ;
-                    $update_tab[$i]= $update_obj;
-                    $i++;
+                if(!empty($data)){
+                    $i=0;
+                    foreach($data as $update){
+                        $update_obj = new Update();
+                        $update_obj ->setId($update['id'])->setUpdatedDate($update['updated_date'])->setInputName($update['input_name'])
+                                    ->setOldContent($update['old_content'])->setNewContent($update['new_content'])
+                                    ->setIdArtwork($update['id_artwork'])->setIsSeen($update['seen']) ;
+                        $update_tab[$i]= $update_obj;
+                        $i++;
+                    }  
+                }elseif(empty($data)){
+                    $update_tab=[];
                 }
+                
 
                 return $update_tab;
 
@@ -111,7 +120,7 @@
                 $db= Connection::connect(); 
 
                 //update the seen column
-                $stmt=$db->prepare("UPDATE updates SET seen='1' WHERE id=$updateId");
+                $stmt=$db->prepare("UPDATE updates SET seen=1 WHERE id=$updateId");
                 $stmt->execute();
 
             }catch(PDOException $e){

@@ -1,24 +1,24 @@
 <?php
     /***
-     * 
+     *
      * MYSQL CONFIG
-     * 
+     *
      */
 
-    $mysql_host = "localhost";
-    $mysql_database = "panorama";
-    $mysql_user = "root";
+    $mysql_host = "";
+    $mysql_port = "";
+    $mysql_database = "";
+    $mysql_user = "";
     $mysql_user_password = "";
 
     /***
-     * 
+     *
      * API CONFIGURATION
-     * 
+     *
      */
     // default path
     $api_url = "http://127.0.0.1:8000";
-    // $api_url = "https://api.lefresnoy.net";
-    
+
     // auth url
     $auth_login_url = $api_url."/v2/rest-auth/login/";
     $auth_logout_url = $api_url."/v2/rest-auth/logout/";

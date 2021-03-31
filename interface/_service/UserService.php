@@ -32,12 +32,37 @@
             }
         }
 
+        //search all users that are students
+        public static function searchAllStudents(){
+            try{
+
+                $dao = new UserDAO();
+                //catch a tab of all users in the database
+                return $dao->searchAllStudents();
+                
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
+
         //search user by id
         public function searchBy(Int $idUser){
             try{
                 $dao = new UserDAO();
                 //catch a tab of one row, i.e the student looked for
                 return $dao->searchBy($idUser);
+
+            }catch(DAOException $serviceException){
+                throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());
+            }
+        }
+
+        //search user by email
+        public function searchByEmail(String $email){
+            try{
+                $dao = new UserDAO();
+                //catch a tab of one row, i.e the user looked for
+                return $dao->searchByEmail($email);
 
             }catch(DAOException $serviceException){
                 throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());

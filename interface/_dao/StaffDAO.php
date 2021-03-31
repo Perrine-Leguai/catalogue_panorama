@@ -9,7 +9,7 @@
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("INSERT INTO `staff` VALUES (NULL, $idUser)");
+                $stmt = $db->prepare("INSERT INTO staff VALUES (NULL, $idUser)");
                 $rs = $stmt->execute();
                 
                 //return rs to display success message after adding

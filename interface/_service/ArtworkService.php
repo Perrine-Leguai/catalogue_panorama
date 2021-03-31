@@ -9,9 +9,8 @@
         public static function create(Object $artwork){
 
             try{
-
                 $dao = new ArtworkDAO();
-                //catch create result, if well or bad done
+                //catch a response tab , containing the status of the request and the last id entrance
                 return  $dao->create($artwork);
 
             }catch(DAOException $serviceException){
@@ -24,7 +23,7 @@
             try{
 
                 $dao = new ArtworkDAO();
-                //catch a tab of all artworks in the database
+                //catch a tab of all artworks as objects in the database
                 return $dao->searchAll();
                 
             }catch(DAOException $serviceException){
@@ -61,7 +60,7 @@
         public static function update(Object $objet, int $id_object_to_modify){
             try{
                 $dao = new ArtworkDAO();
-                //catch a tab of all the not seen artwork, where seen = false
+                //return if the request has been successfull or a failure
                 return $dao->update($objet, $id_object_to_modify);
 
             }catch(DAOException $serviceException){
@@ -73,7 +72,9 @@
         public static function updateSeenStatus(int $artworkId){
             
             try{
+                
                 $dao = new ArtworkDAO();
+                //return if the request has been successfull or a failure
                 return $dao->isSeen($artworkId);
 
             }catch(DAOException $serviceException){

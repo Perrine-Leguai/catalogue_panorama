@@ -1,35 +1,39 @@
 <?php
+    require_once(__DIR__.'/filesCheck.php');
 
-    require_once(__DIR__.'/../_service/UserService.php');
-    require_once(__DIR__.'/../_service/StudentService.php');
-    require_once(__DIR__.'/../_service/ArtworkService.php');
-    require_once(__DIR__.'/../_service/UpdateService.php');
-    require_once(__DIR__.'/../presentation/communHtml.php');
-    require_once(__DIR__.'/../presentation/studentView.php');
+    require_once(__DIR__.'/../_class/Media.php');
     require_once(__DIR__.'/../_class/Artwork.php');
     require_once(__DIR__.'/../_class/Update.php');
 
+    require_once(__DIR__.'/../_service/UserService.php');
+    require_once(__DIR__.'/../_service/MediaService.php');
+    require_once(__DIR__.'/../_service/StudentService.php');
+    require_once(__DIR__.'/../_service/ArtworkService.php');
+    require_once(__DIR__.'/../_service/UpdateService.php');
 
-    ////////////////////////////////////////FAKE INITIALISATION////////////////////
-    $_SESSION['idStudent']  = 1;
+    require_once(__DIR__.'/../presentation/communHtml.php');
+    require_once(__DIR__.'/../presentation/studentView.php');
+    
 
-
+    session_start();
+    //redirection if not connected or don't have access
+    if (!$_SESSION) {
+        header('location: ../_controller/connectionViewController.php?logout');
+    }
+    elseif($_SESSION['profil']!="is_student"){
+        header('location: ../_controller/connectionViewController.php?logout');
+    }
+    
+    //catch all artwork infos of the logged person
     $session_artwork_obj = ArtworkService::searchBy($_SESSION['idStudent']);
-    $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
-    
-    //display the global html
-    html('Catalogue Panorama - Artiste');
 
-    //form for creation and update
-    formCreateArtwork($session_artwork_obj);
-
-    //list of updates done by the student
-    updatesList($list_of_updates);
-    
-    //display the scripts
-    scripts('countdown');
-
-    
+    //if there is already an artwork created
+    if($session_artwork_obj!=null){
+        //catch the updates
+        $list_of_updates    = UpdateService::searchByAwId($session_artwork_obj->getId());
+        //catch all the medias
+        $medias_list = MediaService::searchBy($session_artwork_obj->getId());
+    }
 
     //check if there is any information on the url
     if(isset($_GET) && !empty($_GET)){
@@ -41,11 +45,17 @@
                 $subtitle       = htmlentities($_POST['subtitle']);
                 $type           = htmlentities($_POST['type']);
                 $duration       = htmlentities($_POST['duration']);
-                $short_syn   = htmlentities($_POST['short_synopsis']);
-                $long_syn    = htmlentities($_POST['long_synopsis']);
-                $thnaks    = htmlentities($_POST['thanks']);
-            
-                //if it's a creation
+                $long_syn       = htmlentities($_POST['synopsis_long']);
+                $thanks         = htmlentities($_POST['thanks']);
+
+
+                if(isset($_FILES) && !empty($_FILES)){
+                    //stock the picture on the server and return an url to store in the database
+                    $img    = checkFiles($_FILES, $_SESSION['username']); 
+                }
+                
+                
+            //if it's a creation
             if($_GET['action']=="create"){
                 
                 //set automatically the current date and seen = false
@@ -59,15 +69,20 @@
                 //create an object Artwork
                 $aw = new Artwork();
                 $aw ->setTitle($title)->setSubtitle($subtitle)->setType($type)->setDuration($duration)
-                    ->setSynopsisShort($short_syn)->setSynopsisLong($long_syn)
-                    ->setThanks($thnaks)
+                    ->setSynopsisLong($long_syn)->setThanks($thanks)
                     ->setCreatedAt($created_date)->setIdStudent($id_student)->setSeen($seen);
-                
+
                 try{
                     //send the request throw several layer. 
-                    //can catch a success if operation happened well - to display a success alert 1=success 0=fail
-                   $success=ArtworkService::create($aw);
-                   echo $success;
+                    //catch the id of the created artwork
+                    $id_success=(ArtworkService::create($aw))['last_id'];
+
+                    //create media related to this artwork
+                    $media  = new Media();
+                    $media  ->setIdArtwork($id_success)->setTitle($title)->setDescription("teaser media")
+                            ->setMedia($img);
+
+                    MediaService::create($media);
 
                 }catch(ServiceException $serviceException){
                     echo $ServiceException->getCode();
@@ -78,22 +93,27 @@
             //if it's an update
             elseif($_GET['action']=="edit"){
                 //keep only the comparable values (not id, created_at, id_student and seen)
-                $old_content_array = array_slice((array) $session_artwork_obj, 1, 8);
-                $new_content_array = [$title, $subtitle, $type, $duration, $short_fr_syn, $long_fr_syn, $short_en_syn, $long_en_syn];
+                $old_content_array = array_slice((array) $session_artwork_obj, 1, 7);
                 
+                $new_content_array = [$title, $subtitle, $type, $duration, $short_syn, $long_syn, $thanks];
+
                 try{
-                    
                     //create updates obj
                     $i=0;
                     foreach($old_content_array as $value){
                         
+                        //compare index by index
                         if($value != $new_content_array[$i]){
+                            
                             $input_name = preg_replace('/artwork/i', "", array_search($value, $old_content_array));
+                            
                             $old_content    =   $value;
                             $new_content    = $new_content_array[$i];
+                            
                             $updated_at     = date("Y-m-d");
                             $id_artwork     = $session_artwork_obj->getId();
 
+                            //create updates obj
                             $update = new Update();
                             $update ->setUpdatedDate($updated_at)->setInputName($input_name)->setOldContent($old_content)
                                     ->setNewContent($new_content)->setIdArtwork($id_artwork)->setIsSeen(0);
@@ -106,18 +126,49 @@
                     //update the current artwork
                     $updated_artwork = new Artwork();
                     $updated_artwork    ->setTitle($title)->setSubtitle($subtitle)->setType($type)->setDuration($duration)
-                                        ->setSynopsisShort($short_syn)->setSynopsisLong($long_syn)
+                                        ->setSynopsisLong($long_syn)
                                         ->setThanks($thanks)->setSeen(0);
+                   
                     $success=ArtworkService::update($updated_artwork, $session_artwork_obj->getId());
+
+                    //create media
+                    //create media related to this artwork
+                    $media  = new Media();
+                    $media  ->setIdArtwork($session_artwork_obj->getId())->setTitle($title)->setDescription("teaser media")
+                            ->setMedia($img);
+
+                    MediaService::create($media);    
 
                 }catch(ServiceException $serviceException){
                     echo $ServiceException->getCode();
-                }
-                
-            }
-                
+                }  
+            }  
         }
 
-        
+        //delete medias
+        elseif(isset($_GET['delete']) && !empty($_GET['delete'])){
+            $id = $_GET['delete'];
+            
+            try{
+                $rs=MediaService::delete($id);
+                
+            }catch(ServiceException $serviceException){
+                echo $ServiceException->getCode();
+            }
+        }
     }
+
+    //display the global html
+    html('Catalogue Panorama - Artiste', null, null, null);
+
+    //form for creation and update
+    formCreateArtwork($session_artwork_obj, $medias_list);
+
+    //list of updates done by the student
+    if(isset($list_of_updates) && !empty($list_of_updates)){
+       updatesList($list_of_updates); 
+    }
+    
+    //display the scripts
+    scripts('countdown');
 ?>

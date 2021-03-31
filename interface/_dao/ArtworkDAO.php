@@ -1,10 +1,9 @@
 <?php
     require_once(__DIR__.'/../exception/DAOException.php');
     require_once(__DIR__.'/Connection.php');
-    require_once(__DIR__.'/../interface/InterfaceDao.php');
     require_once(__DIR__.'/../_class/Artwork.php');
 
-    class ArtworkDAO extends Connection implements InterfaceDao{
+    class ArtworkDAO extends Connection {
         
 
         //add new artwork
@@ -14,7 +13,7 @@
             $subtitle          = $artwork->getSubtitle() ;
             $type              = $artwork->getType() ;
             $duration          = $artwork->getDuration() ;
-            $synopsis_short    = $artwork->getSynopsisShort();
+            $bio               = $artwork->getBio();
             $synopsis_long     = $artwork->getSynopsisLong();
             $thanks            = $artwork->getThanks() ;
             $created_at        = $artwork->getCreatedAt();
@@ -25,22 +24,26 @@
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("INSERT INTO `artwork` VALUES (NULL, :title, :subtitle, :type, :duration, :synoShort, :synoLong, :thanks, :create, :idStudent, :seen)");
+                $stmt = $db->prepare("INSERT INTO artwork VALUES (NULL, :title, :subtitle, :type, :duration, :bio, :synoLong, :thanks, :create, :idStudent, :seen)");
                 //binding params
                 $stmt->bindParam(':title', $title ); 
                 $stmt->bindParam(':subtitle', $subtitle); 
                 $stmt->bindParam(':type', $type); 
-                $stmt->bindParam(':duration', $duration); 
-                $stmt->bindParam(':synoShort', $synopsis_short); 
+                $stmt->bindParam(':duration', $duration);
+                $stmt->bindParam(':bio', $bio);
                 $stmt->bindParam(':synoLong', $synopsis_long ); 
                 $stmt->bindParam(':thanks', $thanks ); 
                 $stmt->bindParam(':create', $created_at ); 
                 $stmt->bindParam(':idStudent', $id_student ); 
                 $stmt->bindParam(':seen', $seen);
 
-                $rs = $stmt->execute();
-                //return rs to display success message after adding
-                return $rs;
+                //status of the request (success or failure)
+                $response['status']     = $stmt->execute();
+                //the id of the last database entrance
+                $response['last_id']    = $db->lastInsertId();
+                
+                return $response;
+
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());
             }
@@ -49,12 +52,32 @@
         //search all artwork 
         public function searchAll(){
             try{
+                //connect to the bdd
+                $db= Connection::connect(); 
 
-                $stmt=$this->db->prepare("SELECT * from artwork");
+                $stmt=$db->prepare("SELECT * from artwork  ORDER BY artwork.title ASC");
                 $stmt->execute();
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                return $data;
+                //Closes the cursor, enabling the statement to be executed again 
+                $stmt->closeCursor();
+                
+                if($data!=null){
+                    $i=0;
+                    foreach($data as $artwork){
+                        $artwork_obj = new Artwork();
+                        $artwork_obj ->setId($artwork['id'])->setTitle($artwork['title'])->setSubtitle($artwork['subtitle'])
+                                    ->setType($artwork['type'])->setDuration($artwork['duration'])
+                                    ->setBio($artwork['bio'])
+                                    ->setSynopsisLong($artwork['synopsis_long'])
+                                    ->setThanks($artwork['thanks'])->setCreatedAt($artwork['created_at'])->setIdStudent($artwork['id_student'])->setSeen($artwork['seen']) ;
+                        $artwork_tab[$i]= $artwork_obj;
+                        $i++;
+                    }
+                }elseif($data==null){
+                    $artwork_tab[]=null;
+                }
+                
+                return $artwork_tab;
                 
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());
@@ -76,14 +99,18 @@
                 //free the memory
                 $stmt->closeCursor();
                 
-                //stock info into Artwork object
-                $artwork = new Artwork();
-                $artwork->setId($data['id'])->setTitle($data['title'])->setSubtitle($data['subtitle'])
-                        ->setType($data['type'])->setDuration($data['duration'])
-                        ->setSynopsisShort($data['synopsis_short'])->setSynopsisLong($data['synopsis_long'])
-                        ->setThanks($data['thanks'])
-                        ->setCreatedAt($data['created_at'])->setIdStudent($data['id_student'])->setSeen($data['seen']);
                 
+                if($data!=null){
+                    //stock info into Artwork object
+                    $artwork = new Artwork();
+                    $artwork->setId($data['id'])->setTitle($data['title'])->setSubtitle($data['subtitle'])
+                        ->setType($data['type'])->setDuration($data['duration'])->setBio($data['bio'])
+                        ->setSynopsisLong($data['synopsis_long'])->setThanks($data['thanks'])
+                        ->setCreatedAt($data['created_at'])->setIdStudent($data['id_student'])->setSeen($data['seen']);
+                }elseif($data==null){
+                    $artwork=null;
+                }
+            
                 return $artwork;
 
             }catch(PDOException $e){
@@ -99,7 +126,7 @@
                 $db= Connection::connect(); 
 
                 //find all the artwork where seen = false 
-                $stmt=$db->prepare("SELECT * FROM artwork WHERE seen=0 ORDER BY `artwork`.`created_at` ASC");
+                $stmt=$db->prepare("SELECT * FROM artwork WHERE seen=0 ORDER BY artwork.created_at ASC");
                 $stmt->execute();
                 //store the result into data, returns an array indexed by column name 
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -110,8 +137,8 @@
                 foreach($data as $artwork){
                     $artwork_obj = new Artwork();
                     $artwork_obj ->setId($artwork['id'])->setTitle($artwork['title'])->setSubtitle($artwork['subtitle'])
-                                ->setType($artwork['type'])->setDuration($artwork['duration'])
-                                ->setSynopsisShort($artwork['synopsis_short'])->setSynopsisLong($artwork['synopsis_long'])
+                                ->setType($artwork['type'])->setDuration($artwork['duration'])->setBio($artwork['bio'])
+                                ->setSynopsisLong($artwork['synopsis_long'])
                                 ->setThanks($artwork['thanks'])->setCreatedAt($artwork['created_at'])->setIdStudent($artwork['id_student'])->setSeen($artwork['seen']) ;
                     $artwork_tab[$i]= $artwork_obj;
                     $i++;
@@ -125,32 +152,36 @@
         }
 
         public function update(Object $artwork, int $id_object_to_modify){
-            $title             = $artwork->getTitle();
-            $subtitle          = $artwork->getSubtitle() ;
-            $type              = $artwork->getType() ;
-            $duration          = $artwork->getDuration() ;
-            $synopsis_short = $artwork->getSynopsisShort();
-            $synopsis_long  = $artwork->getSynopsisLong();
-            $thanks = $artwork->getThanks() ;
             
-            echo "<br> id:".$id_object_to_modify;
+            
+            $id = preg_replace("/[^0-9]/","",$id_object_to_modify);
+            
+            $title             = $artwork->getTitle();
+            $subtitle          = $artwork->getSubtitle();
+            $type              = $artwork->getType();
+            $duration          = $artwork->getDuration();
+            $bio               = $artwork ->getBio();
+            $synopsis_long     = $artwork->getSynopsisLong();
+            $thanks            = $artwork->getThanks() ;
+            
+            
             try{
                 //connect to the bdd
                 $db= Connection::connect();                 
                 //insert request
-                $stmt = $db->prepare("UPDATE `artwork`  SET `title`= :title, `subtitle`= :subtitle, `type`= :type, 
-                                                            `duration`= :duration, `synopsis_short`=:synoS, `synopsis_long`=:synoL, 
-                                                            `thanks`=:thanks
-                                                        WHERE `id`=:id");
+                $stmt = $db->prepare("UPDATE artwork  SET title= :title, subtitle= :subtitle, type= :type, 
+                                                            duration= :duration, bio= :bio, synopsis_long=:synoL, 
+                                                            thanks=:thanks
+                                                        WHERE id=:id");
                 //binding params
                 $stmt->bindParam(':title', $title ); 
                 $stmt->bindParam(':subtitle', $subtitle); 
                 $stmt->bindParam(':type', $type); 
                 $stmt->bindParam(':duration', $duration); 
-                $stmt->bindParam(':synoS', $synopsis_short); 
+                $stmt->bindParam(':bio', $bio);
                 $stmt->bindParam(':synoL', $synopsis_long ); 
                 $stmt->bindParam(':thanks', $thanks ); 
-                $stmt->bindParam(':id', $id_object_to_modify ); 
+                $stmt->bindParam(':id', $id); 
                 
 
                 $rs = $stmt->execute();
@@ -170,16 +201,16 @@
                 $db= Connection::connect(); 
 
                 //update the seen column
-                $stmt=$db->prepare("UPDATE artwork SET seen='1' WHERE id=$artworkId");
-                $stmt->execute();
+                $stmt=$db->prepare("UPDATE artwork SET seen=1 WHERE id=$artworkId");
+                $rs = $stmt->execute();
+               
+                //return rs to display success message after adding
+                return $rs;
 
             }catch(PDOException $e){
                 throw new DAOException($e->getMessage(), $e->getCode());
             }
         }
-
-        
-
-        
+  
     }
 ?>

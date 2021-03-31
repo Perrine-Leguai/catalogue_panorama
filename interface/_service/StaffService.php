@@ -6,13 +6,13 @@
     class StaffService {
         
         //add new staff
-        public static function create(int $idStaff){
+        public static function create(int $idUser){
 
             try{
 
                 $dao = new StaffDAO();
                 //catch create result, if well or bad done
-                return  $dao->create($idStaff);
+                return  $dao->create($idUser);
 
             }catch(DAOException $serviceException){
                 throw new ServiceException($serviceException->getMessage(), $serviceException->getCode());

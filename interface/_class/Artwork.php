@@ -3,10 +3,10 @@
     class Artwork{
         private $id ;
         private $title ;
-        private $subtitle ;
+        private $subtitle = "" ;
         private $type ;
         private $duration ;
-        private $synopsis_short ;
+        private $bio;
         private $synopsis_long ;
         private $thanks ;
         private $created_at ;
@@ -58,7 +58,7 @@
          *
          * @return $title
          */
-        public function getTitle() : string
+        public function getTitle() : ?string
         {
                 return $this->title;
         }
@@ -70,7 +70,7 @@
          *
          * @return self
          */
-        public function setTitle(string $title) : self
+        public function setTitle(?string $title) : self
         {
                 $this->title = $title;
 
@@ -82,7 +82,7 @@
          *
          * @return $subtitle
          */
-        public function getSubtitle() : string 
+        public function getSubtitle() : ?string
         {
                 return $this->subtitle;
         }
@@ -94,7 +94,7 @@
          *
          * @return self
          */
-        public function setSubtitle(string $subtitle) : self
+        public function setSubtitle(?string $subtitle) : self
         {
                 $this->subtitle = $subtitle;
 
@@ -130,7 +130,7 @@
          *
          * @return $duration
          */
-        public function getDuration() : string 
+        public function getDuration() : ?string 
         {
                 return $this->duration;
         }
@@ -142,7 +142,7 @@
          *
          * @return self
          */
-        public function setDuration(string $duration) : self
+        public function setDuration(?string $duration) : self
         {
                 $this->duration = $duration;
 
@@ -150,30 +150,24 @@
         }
 
         /**
-         * Get the value of synopsis_short
-         *
-         * @return $synopsis_short
+         * Get the value of bio
          */
-        public function getSynopsisShort() : ?string
+        public function getBio() : ?string
         {
-                return $this->synopsis_short;
+                return $this->bio;
         }
 
         /**
-         * Set the value of synopsis_short
-         *
-         * @param string $synopsis_short 
+         * Set the value of bio
          *
          * @return self
          */
-        public function setSynopsisShort(?string $synopsis_short) : self
+        public function setBio(?string $bio) : self
         {
-                $this->synopsis_short = $synopsis_short;
+                $this->bio = $bio;
 
                 return $this;
         }
-
-        
 
         /**
          * Get the value of synopsis_long
@@ -200,13 +194,23 @@
         }
 
         /**
+         * Get the value of thanks
+         *
+         * @return $thanks
+         */
+        public function getThanks() : ?string 
+        {
+                return $this->thanks;
+        }
+
+        /**
          * Set the value of thanks
          *
          * @param $thanks 
          *
          * @return self
          */
-        public function setThanks(string $thanks) : self
+        public function setThanks(?string $thanks) : self
         {
                 $this->thanks = $thanks;
 
@@ -284,17 +288,5 @@
 
                 return $this;
         }
-
-        /**
-         * Get the value of thanks
-         *
-         * @return $thanks
-         */
-        public function getThanks() : string
-        {
-                return $this->thanks;
-        }
-
-        
     }
 ?>
